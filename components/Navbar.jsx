@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, Heart, Pill, Stethoscope, Syringe, Microscope, Activity, ThermometerSun, Snowflake} from "lucide-react";
 import Image from "next/image";
-
+ 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -120,13 +120,13 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="w-full top-0 left-0 bg-transparent z-50 fixed">
+      <nav className="w-full top-0 left-0 bg-transparent absolute z-50 ">
         <div
           className={`absolute inset-0 w-full bg-white transition-transform duration-500 ease-in-out origin-top -z-10 ${
             isExpanded ? 'scale-y-100' : 'scale-y-0'
           }`}
           style={{
-            height: showBrandsDropdown ? 'calc(100% + 60px)' : '100%',
+            height: showBrandsDropdown ? 'calc(100% )' : '100%',
             transition: 'transform 500ms ease-in-out, height 500ms ease-in-out'
           }}
         />
@@ -146,8 +146,7 @@ const Navbar = () => {
               <div className="flex-shrink-0 flex items-center">
                 <Link href="/">
                   <div className="flex items-center gap-2">
-                  <Snowflake color={`${isExpanded? "black":"white"}`} size={36} /> 
-                  <p className={`${isExpanded? "text-black":"text-white"}`}>SNOW</p>
+                  <Image src="/snow.png" alt="Logo" width={100} height={100} />
                   </div>
                 </Link>
               </div>
@@ -158,7 +157,7 @@ const Navbar = () => {
                     key={item.label}
                     href={item.href}
                     className={`menu text-md relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
-                      isExpanded ? "text-gray-800 hover:text-black after:bg-black" : "text-white after:bg-white"
+                      isExpanded ? "text-gray-800 hover:text-black after:bg-black" : "text-black after:bg-black"
                     } transition-colors duration-500`}
                     onMouseEnter={() => setHoveredItem(item.label)}
                     onMouseLeave={() => setHoveredItem(null)}
@@ -172,7 +171,7 @@ const Navbar = () => {
                 <Link
                   href="/contact"
                   className={`text-sm hover:font-medium relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
-                    isExpanded ? "text-black after:bg-black" : "text-white after:bg-white"
+                    isExpanded ? "text-black after:bg-black" : "text-black after:bg-black"
                   } transition-colors duration-500`}
                 >
                   CONTACT
@@ -203,7 +202,7 @@ const Navbar = () => {
                   <Link
                     key={brand.id}
                     href={`/brands/${brand.id}`}
-                    className="flex flex-col items-center justify-center px-4 py-2 rounded-lg transition-colors duration-300 hover:bg-blue-100"
+                    className="flex flex-col items-center justify-center px-4 py-2 transition-colors duration-300 hover:bg-blue-100"
                   >
                     <brand.Icon size={32} color={brand.color} />
                     <span className="text-sm mt-2 text-gray-700">{brand.name}</span>

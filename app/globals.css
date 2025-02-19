@@ -11,6 +11,8 @@
 /* For Firefox */
 * {
   scrollbar-width: none;
+  margin: 0%;
+  padding: 0
 }
 
 /* For Internet Explorer and Edge */
@@ -18,7 +20,7 @@
   -ms-overflow-style: none;
 }
 
-@font-face {
+/* @font-face {
   font-family: 'Playfair Display';
   src: url('/fonts/PlayfairDisplay-VariableFont_wght.ttf') format('truetype');
   font-weight: 100 900;
@@ -26,4 +28,37 @@
 
 body {
   font-family: 'Playfair Display', serif;
+} */
+
+body {
+  font-family: Arial, sans-serif
+}
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+[data-speed] {
+  will-change: transform;
+}
+
+#__next {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

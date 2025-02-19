@@ -1,152 +1,109 @@
-"use client"
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+"use client";
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { FaHeartbeat, FaHospitalSymbol, FaStethoscope } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const medicalContent = [
-  {
-    title: "Advanced Cardiac Care",
-    subtitle: "Comprehensive heart health services with cutting-edge technology",
-    image: "/hero1.webp",
-    icon: <FaHeartbeat />
-  },
-  {
-    title: "Emergency Medicine",
-    subtitle: "24/7 emergency services with expert medical teams",
-    image: "/hero2.jpg",
-    icon: <FaHospitalSymbol />
-  },
-  {
-    title: "Preventive Healthcare",
-    subtitle: "Personalized wellness programs for optimal health",
-    image: "/hero3.jpg",
-    icon: <FaStethoscope />
-  }
+const images = [
+  '/hero2.jpg',
+  '/hero3.jpg',
 ];
 
-const MedicalHero = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+const words = ['health', 'lives', 'days'];
+
+export default function FullscreenImageBottomCard() {
+  const [currentImage, setCurrentImage] = useState(0);
+  const [currentWord, setCurrentWord] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % medicalContent.length);
-    }, 6000);
-    return () => clearInterval(interval);
+    const imageInterval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 5000);
+
+    const wordInterval = setInterval(() => {
+      setCurrentWord((prev) => (prev + 1) % words.length);
+    }, 3000);
+
+    return () => {
+      clearInterval(imageInterval);
+      clearInterval(wordInterval);
+    };
   }, []);
 
   return (
-    <section className="min-h-screen bg-gray-900 ">
-      <div className="container mx-auto px-4 py-16 flex flex-col lg:flex-row items-center justify-between">
-        {/* Text Content */}
-        <div className="lg:w-1/2 mb-12 lg:mb-0 space-y-8 relative z-10">
-          <AnimatePresence mode='wait'>
-            <motion.div
-              key={activeIndex}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.8 }}
-              className="text-white"
-            >
-              <div className="mb-6 text-4xl text-emerald-400">
-                {medicalContent[activeIndex].icon}
-              </div>
-              <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
-                {medicalContent[activeIndex].title}
-              </h1>
-              <p className="text-xl mb-8 text-gray-300 font-light">
-                {medicalContent[activeIndex].subtitle}
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-emerald-600 text-white px-8 py-4 rounded-lg text-lg font-semibold flex items-center gap-2"
-              >
-                <FaStethoscope />
-                Schedule Consultation
-              </motion.button>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Image Container */}
-        <div className="lg:w-1/2 w-full relative lg:mt-24">
-          <AnimatePresence mode='wait'>
-            <motion.div
-              key={activeIndex}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.8 }}
-              className="relative w-full h-96 lg:h-[500px]"
-            >
-              <Image
-                src={medicalContent[activeIndex].image}
-                alt="Medical service"
-                fill
-                className="object-cover shadow-2xl"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-              />
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.1 }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-xl mix-blend-lighten"
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
-
-      {/* Progress Indicators */}
-      <div className="flex justify-center gap-4 mt-12">
-        {medicalContent.map((_, index) => (
+    <div className="w-full">
+      {/* Full-width image section with overlay at bottom */}
+      <div className="relative w-full h-[70vh] md:h-[80vh] lg:h-[90vh]">
+        <AnimatePresence mode="wait">
           <motion.div
-            key={index}
-            onClick={() => setActiveIndex(index)}
-            className="h-1 w-12 bg-gray-300 rounded-full cursor-pointer relative overflow-hidden"
-            whileHover={{ scaleY: 1.2 }}
+            key={currentImage}
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
           >
-            {index === activeIndex && (
-              <motion.div
-                className="absolute left-0 top-0 h-full bg-emerald-400 w-full"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 5.8, ease: "linear" }}
-              />
-            )}
+            <Image
+              src={images[currentImage]}
+              alt="Healthcare professional"
+              fill
+              priority
+              style={{ objectFit: 'cover' }}
+            />
           </motion.div>
-        ))}
-      </div>
+        </AnimatePresence>
 
-      {/* Floating Features */}
-      <div className="container mx-auto px-4 mt-16 grid md:grid-cols-3 gap-8">
-        <motion.div
-          whileHover={{ y: -10 }}
-          className="bg-white bg-opacity-10 p-6 rounded-xl backdrop-blur-sm"
-        >
-          <h3 className="text-xl font-bold text-white mb-4">24/7 Emergency</h3>
-          <p className="text-gray-300 font-light">Immediate care when you need it most</p>
-        </motion.div>
-        <motion.div
-          whileHover={{ y: -10 }}
-          className="bg-white bg-opacity-10 p-6 rounded-xl backdrop-blur-sm"
-        >
-          <h3 className="text-xl font-bold text-white mb-4">Expert Doctors</h3>
-          <p className="text-gray-300 font-light">Board-certified specialists</p>
-        </motion.div>
-        <motion.div
-          whileHover={{ y: -10 }}
-          className="bg-white bg-opacity-10 p-6 rounded-xl backdrop-blur-sm"
-        >
-          <h3 className="text-xl font-bold text-white mb-4">Digital Records</h3>
-          <p className="text-gray-300 font-light">Secure patient portal access</p>
-        </motion.div>
+        {/* Card section at the bottom of the image */}
+        <div className="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm">
+          <div className="max-w-7xl mx-auto px-4 py-8 md:px-8 lg:px-12">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+              <div className="mb-6 md:mb-0 md:mr-8 md:max-w-xl">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-3">
+                  Better{' '}
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={currentWord}
+                      className="text-blue-500 inline-block"
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -20, opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {words[currentWord]}
+                    </motion.span>
+                  </AnimatePresence>
+                </h1>
+                
+                <p className="text-gray-600 mb-0 text-sm md:text-base">
+                  Medic Care is a Bootstrap 5 Template provided by TemplateMo
+                  website. Credits go to FreePik and RawPixel for images used in this
+                  template.
+                </p>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4 items-center">
+                <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 transition-colors duration-300 w-full sm:w-auto text-center">
+                  LEARN MORE
+                </button>
+                <span className="text-gray-600 whitespace-nowrap">📱 010-020-0340</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Image indicators */}
+        <div className="absolute bottom-32 md:bottom-36 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                i === currentImage ? 'bg-white scale-125' : 'bg-white/50'
+              }`}
+              onClick={() => setCurrentImage(i)}
+              aria-label={`View image ${i + 1}`}
+            />
+          ))}
+        </div>
       </div>
-    </section>
+    </div>
   );
-};
-
-export default MedicalHero;
+}
