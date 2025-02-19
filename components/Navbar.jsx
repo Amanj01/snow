@@ -75,6 +75,7 @@ const Navbar = () => {
     { label: "ABOUT", href: "/about-us" },
     { label: "BRANDS", href: "#", isBrands: true },
     { label: "BLOGS", href: "/blogs" },
+    { label: "EVENTS", href: "/events" },
     { label: "RESOURCES", href: "/resources" },
   ];
 
@@ -170,7 +171,7 @@ const Navbar = () => {
               <div className="hidden lg:flex items-center">
                 <Link
                   href="/contact"
-                  className={`text-sm hover:font-medium relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
+                  className={`text-md hover:font-medium relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
                     isExpanded ? "text-black after:bg-black" : "text-black after:bg-black"
                   } transition-colors duration-500`}
                 >
