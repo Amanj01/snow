@@ -77,7 +77,7 @@ const brandLogos = [
       <Slider
         width="180px"
         duration={12}
-        pauseOnHover={true}
+        pauseOnHover={false}
         blurBorders={true}
         blurBorderColor={'#f1f1f1'}
       >

@@ -202,10 +202,10 @@ const Navbar = () => {
                   <Link
                     key={brand.id}
                     href={`/brands/${brand.id}`}
-                    className="flex flex-col items-center justify-center px-4 py-2 transition-colors duration-300 hover:bg-blue-100"
+                    className="flex flex-col items-center justify-center px-6 py-2 group"
                   >
-                    <brand.Icon size={32} color={brand.color} />
-                    <span className="text-sm mt-2 text-gray-700">{brand.name}</span>
+                    <brand.Icon size={42} className="text-gray-500 grayscale group-hover:grayscale-0 group-hover:text-blue-600 transition-colors duration-500" />
+                    <span className="text-sm mt-2 text-gray-500 grayscale group-hover:grayscale-0 group-hover:text-blue-600 transition-colors duration-500">{brand.name}</span>
                   </Link>
                 ))}
               </div>
