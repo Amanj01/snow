@@ -44,23 +44,25 @@ export default function About() {
 
   return (
     <>
+
+    {/* for SEO optmazation meta tags and title */}
       <Head>
         <title>About | Snow Medical</title>
         <meta name="description" content="Learn about Snow Medical and our commitment to advancing healthcare" />
       </Head>
 
-      <section className="w-full max-w-7xl mx-auto px-4 py-16 md:py-24">
+      <section className="w-screen mx-auto px-4 md:px-6 py-16 md:py-24">
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="mb-16"
+          className="mb-6 md:mb-10 lg:mb-16"
         >
           <motion.h1 
             variants={itemVariants}
-            className="text-4xl md:text-5xl font-bold mb-12 text-blue-700"
+            className="text-3xl md:text-5xl text-black pt-12"
           >
-            About
+            ABOUT
           </motion.h1>
         </motion.div>
 

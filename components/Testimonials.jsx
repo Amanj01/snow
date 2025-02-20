@@ -22,9 +22,10 @@ const TestimonialCarousel = () => {
   ];
 
   return (
-    <div
+    <section className=' w-screen bg-gray-50'>
+      <div
       ref={containerRef}
-      className="container mx-auto mb-20 md:min-w-[820px] lg:max-w-[2000px] pb-24 pt-7 md:pb-28 md:pt-10 bg-gray-100"
+      className="mb-20 md:min-w-[820px] pb-24 pt-7 md:pb-28 md:pt-10 container mx-auto"
     >
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -33,7 +34,7 @@ const TestimonialCarousel = () => {
         className="frames__top text-center"
       >
         <h4 className="text-3xl md:text-5xl lg:text-6xl font-mansory uppercase mb-6 md:mb-10 lg:mb-14">
-          <span className='text-blue-600'>User </span> <span className='text-[#FF3B30]'>Testimonials</span>
+          <span className='text-blue-600'>User </span> feedbacks
         </h4>
       </motion.div>
 
@@ -91,6 +92,8 @@ const TestimonialCarousel = () => {
         </Swiper>
       </motion.div>
     </div>
+    </section>
+    
   );
 };
 

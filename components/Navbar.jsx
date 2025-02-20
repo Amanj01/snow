@@ -120,8 +120,9 @@ const Navbar = () => {
   const isExpanded = (isNavHovered || hoveredItem) && !isMobile;
 
   return (
-    <>
-      <nav className="w-full top-0 left-0 bg-transparent absolute z-50 ">
+    <> 
+    <nav className="w-screen top-0 left-0 bg-transparent absolute z-50">
+     <nav className="w-screen container mx-auto">
         <div
           className={`absolute inset-0 w-full bg-white transition-transform duration-500 ease-in-out origin-top -z-10 ${
             isExpanded ? 'scale-y-100' : 'scale-y-0'
@@ -142,7 +143,7 @@ const Navbar = () => {
             }
           }}
         >
-          <div className="px-4 md:px-8">
+          <div className="px-2 md:px-4 lg:px-6">
             <div className="flex justify-between items-center h-16">
               <div className="flex-shrink-0 flex items-center">
                 <Link href="/">
@@ -255,6 +256,8 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+    </nav>
+     
       <BrandsDrawer />
     </>
   );

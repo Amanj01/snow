@@ -104,20 +104,20 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="bg-white py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="max-w-3xl mx-auto">
-        <h2 className="text-4xl font-bold text-left mb-2 text-[#0052cc]">Contact Us</h2>
-        <div className="h-1 w-40 bg-red-500 ml-2 mb-10"></div>
+    <div className="w-screen bg-gray-50 h-max flex justify-center ">
+      <div className="py-24 px-4 sm:px-6 lg:px-8 lg:pt-36 w-full max-w-5xl container mx-auto">
+        <h2 className="text-3xl md:text-5xl text-left mb-2 text-black uppercase">contact us</h2>
+        <div className="h-1 w-48 md:w-[305px] bg-red-500 mb-10"></div>
 
         {/* Status Messages */}
         {submitStatus.success && (
-          <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center mb-8">
+          <div className="bg-green-50 border border-green-200 p-6 text-center mb-8">
             <h3 className="text-2xl font-medium text-green-800 mb-2">Thank You!</h3>
             <p className="text-green-700">Your inquiry has been received. A Snow Medical representative will contact you shortly.</p>
           </div>
         )}
         {submitStatus.error && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
+          <div className="bg-red-50 border border-red-200 p-4 mb-8">
             <p className="text-red-700">{submitStatus.error}</p>
           </div>
         )}
@@ -134,7 +134,7 @@ const ContactForm = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 ${
+                className={`w-full px-4 py-3 border focus:outline-none focus:ring-2 ${
                   errors.name ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-200'
                 }`}
                 disabled={submitStatus.loading}
@@ -152,7 +152,7 @@ const ContactForm = () => {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 ${
+                className={`w-full px-4 py-3 border focus:outline-none focus:ring-2 ${
                   errors.phone ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-200'
                 }`}
                 disabled={submitStatus.loading}
@@ -172,7 +172,7 @@ const ContactForm = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 ${
+                className={`w-full px-4 py-3 border focus:outline-none focus:ring-2 ${
                   errors.email ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-200'
                 }`}
                 disabled={submitStatus.loading}
@@ -190,7 +190,7 @@ const ContactForm = () => {
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200"
+                className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-200"
                 disabled={submitStatus.loading}
               />
             </div>
@@ -206,7 +206,7 @@ const ContactForm = () => {
               rows={6}
               value={formData.message}
               onChange={handleChange}
-              className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 ${
+              className={`w-full px-4 py-3 border focus:outline-none focus:ring-2 ${
                 errors.message ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-200'
               }`}
               disabled={submitStatus.loading}
@@ -214,7 +214,7 @@ const ContactForm = () => {
             {errors.message && <p className="mt-1 text-red-500 text-sm">{errors.message}</p>}
           </div>
           
-          <div className="flex justify-center pt-4">
+          <div className="flex justify-left pt-4">
             <button
               type="submit"
               className="px-8 py-3 bg-[#0052cc] text-white font-medium hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-60"

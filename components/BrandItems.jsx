@@ -127,7 +127,7 @@ const ProjectSlider = () => {
       variants={animation}
       className="bg-white"
     >
-      <div className="max-w-8xl mx-auto px-6 md:px-16 lg:px-24 pt-16 md:pt-20 lg:pt-24 pb-16">
+      <div className="w-screen container mx-auto px-6 md:px-16 lg:px-24 pt-16 md:pt-20 lg:pt-24 pb-16">
         <div className="flex items-center justify-between mb-10 md:mb-16">
           <div className="relative w-full text-center">
             <h1 className="text-2xl md:text-5xl font-bold tracking-tight">

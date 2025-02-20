@@ -115,9 +115,7 @@ const ResourcesSection = ({
   title = "RESOURCES",
   buttonText = "VIEW ALL RESOURCES",
   initialItemsToShow = 8,
-  resources = sampleResources,
-  backgroundColor = "white",
-  textColor = "#333333"
+  resources = sampleResources
 }) => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [showAll, setShowAll] = useState(false);
@@ -133,14 +131,14 @@ const ResourcesSection = ({
   };
 
   return (
-    <div 
-      className="container mx-auto flex flex-col px-4 sm:px-6 md:px-8 lg:px-20 py-16 md:py-24"
-      style={{ backgroundColor, color: textColor }}
+    <section className="px-4 md:px-6 py-16 md:py-24 lg:pt-36 text-[#333333] bg-gray-50">
+       <div 
+      className="container mx-auto flex flex-col"
     >
       <div
         className="title flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12"
       >
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-mansory uppercase mb-4 sm:mb-0 text-blue-700">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-mansory uppercase mb-4 sm:mb-0 text-black">
           {title}
         </h1>
         <button 
@@ -152,7 +150,7 @@ const ResourcesSection = ({
       </div>
 
       <div
-        className="content grid grid-cols-1 md:grid-cols-2 gap-8"
+        className="content grid grid-cols-1 md:grid-cols-2 gap-12"
         ref={ref}
       >
         {displayedResources.map((resource, index) => (
@@ -164,7 +162,7 @@ const ResourcesSection = ({
               duration: 0.5,
               delay: index < initialItemsToShow ? index * 0.1 : 0.1
             }}
-            className="item flex flex-col border-l-2 border-red-500 pl-4 hover:border-blue-700 transition-colors duration-300 pb-6"
+            className="item flex flex-col border-l-2 border-red-500 pl-4 hover:border-blue-700 transition-colors duration-300 pb-2  "
           >
             <Link href={resource.link}>
               <div className="texts flex flex-col justify-between h-full">
@@ -209,6 +207,8 @@ const ResourcesSection = ({
         </div>
       )}
     </div>
+    </section>
+   
   );
 };
 
