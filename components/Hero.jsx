@@ -74,9 +74,7 @@ export default function FullscreenImageBottomCard() {
                 </h1>
                 
                 <p className="text-gray-600 mb-0 text-sm md:text-base">
-                  Medic Care is a Bootstrap 5 Template provided by TemplateMo
-                  website. Credits go to FreePik and RawPixel for images used in this
-                  template.
+                  snow medical provide comprehensive training programs to ensure optimal use of our medical devices.
                 </p>
               </div>
               
