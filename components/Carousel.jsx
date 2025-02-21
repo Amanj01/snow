@@ -43,6 +43,8 @@ const Carousel = ({ data, title }) => {
           transition={{ duration: 1, delay: 0.75 }}
           className="relative"
         >
+          {/* the auto play works for large screen if we have more than 3 slides 
+          same thig for ipad but if the slide number is more than 2 for mobile happen if slide number is more than 1 */}
           <Swiper
             onSwiper={(swiper) => (swiperRef.current = swiper)}
             initialSlide={3}
