@@ -121,7 +121,7 @@ const ItemSlider = ({
               <Link href={`${basePath}/${item.slug || `item-${item.id}`}`} key={index}>
                 <div
                   ref={index === 0 ? cardRef : null}
-                  className="group cursor-pointer w-[300px] md:w-[320px] lg:w-[340px] h-[410px] border border-gray-200 hover:border-[#0052CC] transition-all duration-300"
+                  className="group cursor-pointer w-[300px] md:w-[320px] lg:w-[340px] max-h-[410px] border border-gray-200 hover:border-[#0052CC] transition-all duration-300"
                   style={{ 
                     '--hover-border-color': accentColor 
                   } }

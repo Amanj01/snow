@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { HiArrowRight } from "react-icons/hi2";
 import Link from "next/link";
+import { format } from 'date-fns';
 import { useInView } from "react-intersection-observer";
 
 const truncateText = (text, maxLength = 100) => {
@@ -47,13 +48,13 @@ const ResourcesSection = ({
         <div className="content grid grid-cols-1 md:grid-cols-2 gap-12" ref={ref}>
           {displayedResources.map((resource, index) => (
             <motion.div
-              key={resource.id}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="flex flex-col border-l-2 border-red-500 pl-4 hover:border-blue-700 transition-colors duration-300 pb-2"
             >
-              <Link href={resource.link}>
+              <Link href={resource.url} target="_blank" rel="noopener noreferrer">
                 <div className="flex flex-col justify-between h-full">
                   <div className="flex items-start justify-between mb-2 group">
                     <h2 className="font-mansory text-lg md:text-xl pr-4 group-hover:text-blue-500 transition duration-300 text-gray-800">
@@ -70,11 +71,8 @@ const ResourcesSection = ({
                   
                   <div className="flex flex-col gap-2 mt-auto">
                     <div className="flex flex-wrap items-center gap-3">
-                      <span className="bg-blue-700 px-3 py-1 text-xs text-white font-medium">
-                        {resource.category}
-                      </span>
                       <span className="text-xs inline-block text-gray-600">
-                        {resource.date}
+                      {format(new Date(resource.createdAt), 'MMMM d, yyyy')}
                       </span>
                     </div>
                     <hr className="border-t border-gray-200 w-full mt-4" />

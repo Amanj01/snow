@@ -1,10 +1,10 @@
 import React from 'react'
-import { testimonials } from '@/lib/testimonialsData'
+import { comments } from '@/lib/testimonialsData'
 import Carousel from '@/components/Carousel'
 const Testimonials = () => {
   return (
     <div>
-      <Carousel data={testimonials} title="Users Feedback" />
+      <Carousel data={comments} title="Users Feedback" />
     </div>
   )
 }

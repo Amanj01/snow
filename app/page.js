@@ -1,14 +1,16 @@
 import Hero from '@/components/Hero'
 import BrandItems from '@/components/BrandItems'
 import React from 'react'
-import MedicalTestimonials from '@/components/Testimonials'
-import LogoSlider from '@/components/LogoBrandsSlider'
+ import LogoSlider from '@/components/LogoBrandsSlider'
+import Carousel from '@/components/Carousel'
+import { comments } from '@/lib/testimonialsData'
+
 const page = () => {
   return (
     <div className=''>
       <Hero />
       <BrandItems />
-      <MedicalTestimonials />
+      <Carousel comments={comments} title={"What People Say"} />
       <LogoSlider />
     </div>
   )

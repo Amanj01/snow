@@ -1,43 +1,42 @@
-import React from "react";
 import Image from "next/image";
-import { Carousel } from "@/components/Carousel"; 
-import ResourcesSection from './Resources';
+import Carousel from "@/components/Carousel";
+import ResourcesSection from "./Resources";
+import SocialMedia from "@/components/SocialMedia";
+import ItemSlider from "./BrandItemSlider";
 
-const SingleBrand = ({ brand, feedbacks, resources }) => {
+const BrandPage = ({ brand }) => {
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg">
-      {/* Brand Image & Title */}
-      <div className="relative w-full h-64 rounded-lg overflow-hidden mb-6">
-        <Image 
-          src={brand.image} 
-          alt={brand.name} 
-          layout="fill" 
-          objectFit="cover" 
-          className="opacity-80" 
-        />
-        <h1 className="absolute bottom-4 left-4 text-3xl font-bold text-white bg-black/50 px-4 py-2 rounded-lg">
-          {brand.name}
-        </h1>
+    <div className="container mx-auto py-8 pt-28 md:pt-[150px]">
+      {/* Hero Section */}
+      <div className="relative w-full h-96">
+        <Image src={brand.heroImage} alt={brand.name} layout="fill" objectFit="cover" />
+        <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50 text-white text-center p-4">
+          <Image src={brand.logo} alt={`${brand.name} Logo`} width={100} height={100} className="mb-4" />
+          <h1 className="text-4xl font-bold">{brand.name}</h1>
+          <p className="text-lg mt-2">{brand.description}</p>
+        </div>
       </div>
 
-      {/* Brand Description */}
-      <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-        {brand.description}
-      </p>
+      {/* Brand Items Section */}
+      <div className="mt-36 ">
+        <h2 className="text-3xl md:text-5xl px-6 md:px-16 lg:px-24">Our Products</h2>
+        <ItemSlider items={brand.items} title={brand.name} />
+      </div>
 
-      {/* Feedback Carousel */}
-      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
-        Customer Feedback
-      </h2>
-      <Carousel data={feedbacks} />
+      {/* Comments Carousel */}
+      <div className="mt-10">
+         <Carousel comments={brand.comments} title={"What People Say"} />
+      </div>
 
       {/* Resources Section */}
-      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mt-8 mb-4">
-        Related Resources
-      </h2>
-      <ResourcesSection data={resources} />
+      <ResourcesSection resources={brand.resources} />
+
+      {/* Social Media Section */}
+      <div className="mt-10 overflow-auto">
+        <SocialMedia socials={brand.socials} />
+      </div>
     </div>
   );
 };
 
-export default SingleBrand;
+export default BrandPage;

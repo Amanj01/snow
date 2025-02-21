@@ -6,7 +6,7 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/autoplay";
 
-const Carousel = ({ data, title }) => {
+const Carousel = ({ comments, title }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
   const containerRef = useRef(null);
@@ -43,8 +43,6 @@ const Carousel = ({ data, title }) => {
           transition={{ duration: 1, delay: 0.75 }}
           className="relative"
         >
-          {/* the auto play works for large screen if we have more than 3 slides 
-          same thig for ipad but if the slide number is more than 2 for mobile happen if slide number is more than 1 */}
           <Swiper
             onSwiper={(swiper) => (swiperRef.current = swiper)}
             initialSlide={3}
@@ -68,7 +66,7 @@ const Carousel = ({ data, title }) => {
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             className="frames__slider"
           >
-            {data.map((item, index) => (
+            {comments.map((item, index) => (
               <SwiperSlide key={index}>
                 <div
                   className={`card__wrapper bg-background rounded-md shadow-lg transition-transform duration-500 ease-in-out
@@ -77,18 +75,18 @@ const Carousel = ({ data, title }) => {
                   <div className="card__media relative bg-white text-black p-6 md:min-h-[500px] flex flex-col justify-center items-center">
                     <div className="card__content w-full h-full flex flex-col justify-between py-8">
                       {item.brand && (
-                        <h3 className="text-xl md:text-3xl font-mansory text-center text-blue-600 uppercase mb-8">
+                        <h3 className="text-xl md:text-3xl text-center text-blue-600 uppercase mb-8">
                           {item.brand}
                         </h3>
                       )}
-                      {item.feedback && (
+                      {item.review && (
                         <p className="text-2xl md:text-4xl text-gray-500 font-light italic text-center mb-12">
-                          "{item.feedback}"
+                          "{item.review}"
                         </p>
                       )}
-                      {item.username && (
+                      {item.name && (
                         <p className="text-lg md:text-2xl font-bold text-center text-teal-600">
-                          - {item.username}
+                          - {item.name}
                         </p>
                       )}
                     </div>
