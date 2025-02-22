@@ -144,8 +144,8 @@ const ItemSlider = ({
                           Brand: <span className="font-semibold text-black">{item.brandName}</span>
                         </p>
                       )}
-                      <h3 className="font-semibold text-lg mb-1 line-clamp-1">{item.name}</h3>
-                      <p className="text-gray-800 text-md line-clamp-3">
+                      <h3 className="font-semibold text-md mb-1 line-clamp-1">{item.name}</h3>
+                      <p className="text-gray-800 text-md line-clamp-2">
                         {item.description}
                       </p>
                     </div>

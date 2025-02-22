@@ -18,6 +18,12 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Snow Medical",
   description: "Snow Medical Comunity",
+  icons: {
+    icon: "/snow.png",
+    shortcut: "/snow.png",
+    apple: "/snow.png",
+    
+  },
 };
 
 export default function RootLayout({ children }) {
