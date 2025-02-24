@@ -2,17 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* For Chrome, Edge, and Safari */
 ::-webkit-scrollbar {
   display: none;
 }
 
 /* For Firefox */
-* {
+* {    
   scrollbar-width: none;
   margin: 0%;
-  padding: 0
+  padding: 0;
 }
 
 /* For Internet Explorer and Edge */
@@ -20,19 +19,20 @@
   -ms-overflow-style: none;
 }
 
-/* @font-face {
-  font-family: 'Playfair Display';
-  src: url('/fonts/PlayfairDisplay-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
+@layer base {
+  @font-face {
+    font-family: 'Mansory';
+    src: url('./fonts/Mansory.otf') format('opentype');
+    font-weight: 600;
+  }
+
+  
 }
 
 body {
-  font-family: 'Playfair Display', serif;
-} */
-
-body {
-  font-family: Arial, sans-serif
+  font-family: 'Arial', 'Mansory', sans-serif;
 }
+
 html.lenis {
   height: auto;
 }

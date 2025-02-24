@@ -73,13 +73,13 @@ const brandLogos = [
 
 
   return (
-    <div className='py-6 md:py-10 bg-[#f1f1f1] relative my-16'>
+    <div className='py-6 md:py-10 bg-white relative my-16'>
       <Slider
         width="180px"
         duration={12}
         pauseOnHover={false}
         blurBorders={true}
-        blurBorderColor={'#f1f1f1'}
+        blurBorderColor="white"
       >
         {brandLogos.map((item, index) => (
           <Slider.Slide key={index}>

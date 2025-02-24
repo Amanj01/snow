@@ -105,7 +105,7 @@ const BlogAndEventTemplate = ({
                   href={`${itemLinkPrefix}/${item.id}`}
                   className="group block"
                 >
-                  <div className="relative overflow-hidden">
+                  <div className="relative overflow-hidden"  onLoad={() => controls.start("visible")}>
                     <Image
                       src={item.thumbnail || item.image || '/default-placeholder.jpg'}
                       alt={item.title}

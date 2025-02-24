@@ -1,29 +1,128 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ChevronDown } from "lucide-react";
 
-const ItemSlider = ({ 
-  items, 
-  title, 
+const ItemSlider = ({
+  items,
+  title,
   accentColor = "#0052CC",
   highlightColor = "#FF3B30",
   autoScrollInterval = 4000,
-  basePath = "/products" 
+  basePath = "/products"
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [activeDescriptionRefs, setActiveDescriptionRefs] = useState({});
   const scrollContainerRef = useRef(null);
   const cardRef = useRef(null);
+  const descriptionRefs = useRef({});
+  const scrollTimeouts = useRef({});
 
+  // Main horizontal slider auto-scroll
   useEffect(() => {
-    const interval = setInterval(() => {
-      handleScrollRight();
-    }, autoScrollInterval);
+    let interval;
+    if (!isPaused) {
+      interval = setInterval(() => {
+        handleScrollRight();
+      }, autoScrollInterval);
+    }
     return () => clearInterval(interval);
-  }, [autoScrollInterval]);
+  }, [autoScrollInterval, isPaused]);
 
+  // Description vertical auto-scroll with 1-second delay
+  useEffect(() => {
+    const autoScrollTimers = {};
+    const scrollHandlers = {};
+    const startDelays = {};
+
+    Object.keys(activeDescriptionRefs).forEach(index => {
+      if (activeDescriptionRefs[index]) {
+        const descriptionEl = descriptionRefs.current[index];
+        if (!descriptionEl) return;
+
+        const needsScroll = descriptionEl.scrollHeight > descriptionEl.clientHeight;
+        if (!needsScroll) return;
+
+        let scrollDirection = 1;
+        let currentPosition = 0;
+        let lastProgrammaticScroll = 0;
+        let isManualScrolling = false;
+
+        const startAutoScroll = () => {
+          if (isManualScrolling) return;
+          
+          clearInterval(autoScrollTimers[index]);
+          
+          currentPosition = descriptionEl.scrollTop;
+          const maxScroll = descriptionEl.scrollHeight - descriptionEl.clientHeight;
+
+          if (currentPosition >= maxScroll) {
+            scrollDirection = -1;
+          } else if (currentPosition <= 0) {
+            scrollDirection = 1;
+          }
+
+          autoScrollTimers[index] = setInterval(() => {
+            if (!descriptionEl || isManualScrolling) return;
+
+            lastProgrammaticScroll = Date.now();
+            currentPosition += scrollDirection;
+            descriptionEl.scrollTop = currentPosition;
+
+            const maxScroll = descriptionEl.scrollHeight - descriptionEl.clientHeight;
+            if (currentPosition >= maxScroll || currentPosition <= 0) {
+              clearInterval(autoScrollTimers[index]);
+              scrollDirection = -scrollDirection;
+
+              setTimeout(() => {
+                if (activeDescriptionRefs[index] && !isManualScrolling) {
+                  startAutoScroll();
+                }
+              }, 1000);
+            }
+          }, 250);
+        };
+
+        // 1-second delay before starting auto-scroll
+        startDelays[index] = setTimeout(() => {
+          startAutoScroll();
+        }, 3000);
+
+        const handleScroll = () => {
+          if (Date.now() - lastProgrammaticScroll < 100) return;
+
+          isManualScrolling = true;
+          clearInterval(autoScrollTimers[index]);
+          clearTimeout(scrollTimeouts.current[index]);
+          clearTimeout(startDelays[index]);
+
+          scrollTimeouts.current[index] = setTimeout(() => {
+            isManualScrolling = false;
+            if (activeDescriptionRefs[index]) {
+              startAutoScroll();
+            }
+          }, 3000);
+        };
+
+        descriptionEl.addEventListener('scroll', handleScroll);
+        scrollHandlers[index] = handleScroll;
+      }
+    });
+
+    return () => {
+      Object.values(autoScrollTimers).forEach(clearInterval);
+      Object.values(startDelays).forEach(clearTimeout);
+      Object.entries(scrollHandlers).forEach(([index, handler]) => {
+        const el = descriptionRefs.current[index];
+        if (el) el.removeEventListener('scroll', handler);
+      });
+      Object.values(scrollTimeouts.current).forEach(clearTimeout);
+    };
+  }, [activeDescriptionRefs]);
+
+  // Visibility observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -66,20 +165,37 @@ const ItemSlider = ({
     }
   };
 
+  const handleCardMouseEnter = (index) => {
+    setIsPaused(true);
+    setActiveDescriptionRefs(prev => ({...prev, [index]: true}));
+  };
+
+  const handleCardMouseLeave = (index) => {
+    setIsPaused(false);
+    setActiveDescriptionRefs(prev => ({...prev, [index]: false}));
+    
+    if (descriptionRefs.current[index]) {
+      descriptionRefs.current[index].scrollTop = 0;
+    }
+  };
+
+  const handleTouchStart = (index) => {
+    setIsPaused(true);
+    setActiveDescriptionRefs(prev => ({...prev, [index]: true}));
+  };
+
+  const setDescriptionRef = (el, index) => {
+    descriptionRefs.current[index] = el;
+  };
+
   const animation = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
   };
 
-  // Handle case where items array is empty or not provided
   if (!items || items.length === 0) {
     return null;
   }
-
-  // Extract title parts (assuming format: "X By Y")
-  const titleParts = title ? title.split(" By ") : ["Products", "Company"];
-  const mainTitle = titleParts[0];
-  const subTitle = titleParts.length > 1 ? titleParts[1] : "";
 
   return (
     <motion.div
@@ -88,18 +204,11 @@ const ItemSlider = ({
       variants={animation}
       className="bg-white"
     >
-      <div className="w-screen container mx-auto px-6 md:px-16 lg:px-24 pt-16 md:pt-20 lg:pt-24 pb-16">
-        <div className="flex items-center justify-between mb-10 md:mb-16">
-          <div className="relative w-full text-center">
-            <h1 className="text-2xl md:text-5xl font-bold tracking-tight">
-              <span style={{ color: accentColor }}>{mainTitle}</span>
-              {subTitle && <span className="text-black"> By {subTitle}</span>}
-            </h1>
-            <div 
-              className="absolute -bottom-5 left-1/2 transform -translate-x-1/2 w-48 h-1" 
-              style={{ backgroundColor: highlightColor }}
-            />
-          </div>
+      <div className="w-screen container mx-auto pt-16 md:pt-20 lg:pt-24 pb-16">
+        <div className="flex items-center justify-between px-2 md:px-0 lg:px-6 mb-10 md:mb-16">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl text-left uppercase font-mansory">
+            {title}
+          </h1>
           <button
             onClick={handleScrollRight}
             className="ml-4 p-2 transition-colors duration-200 text-white"
@@ -112,21 +221,24 @@ const ItemSlider = ({
 
         <div className="relative">
           <div className="absolute top-0 right-0 w-28 h-full bg-gradient-to-l from-white z-10 pointer-events-none" />
-          
+
           <div
             ref={scrollContainerRef}
             className="grid grid-flow-col gap-6 overflow-x-auto scrollbar-hide pb-4"
           >
-            {items.map((item, index) => (
-              <Link href={`${basePath}/${item.slug || `item-${item.id}`}`} key={index}>
+            {items.map((item, index) => {
+              const isLongDescription = item.description && item.description.length > 150;
+              
+              return (
                 <div
+                  key={index}
                   ref={index === 0 ? cardRef : null}
-                  className="group cursor-pointer w-[300px] md:w-[320px] lg:w-[340px] max-h-[410px] border border-gray-200 hover:border-[#0052CC] transition-all duration-300"
-                  style={{ 
-                    '--hover-border-color': accentColor 
-                  } }
+                  className="group cursor-context-menu w-[300px] md:w-[320px] lg:w-[340px] h-[410px] relative overflow-hidden border border-gray-200 transition-all duration-300"
+                  onMouseEnter={() => handleCardMouseEnter(index)}
+                  onMouseLeave={() => handleCardMouseLeave(index)}
+                  onTouchStart={() => handleTouchStart(index)}
                 >
-                  <div className="relative h-52 md:h-56 overflow-hidden">
+                  <div className="relative w-full h-full">
                     <Image
                       src={item.cardImage}
                       alt={item.name}
@@ -134,39 +246,47 @@ const ItemSlider = ({
                       fill
                       sizes="(max-width: 768px) 300px, 350px"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10" />
-                  </div>
-                  
-                  <div className="p-5 h-36 flex flex-col justify-between bg-white mb-2">
-                    <div>
+                    
+                    <div 
+                      className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0052CC] to-transparent opacity-100 transition-all duration-500"
+                      style={{ height: '30%', background: `linear-gradient(to top, ${accentColor}, transparent)` }}
+                    />
+                    <div 
+                      className="absolute inset-0 bg-gradient-to-t from-[#0052CC] to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"
+                      style={{ height: '100%', background: `linear-gradient(to top, ${accentColor}, transparent)` }}
+                    />
+                    
+                    <div className="absolute top-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
                       {item.brandName && (
-                        <p className="text-sm mb-2" style={{ color: accentColor }}>
-                          Brand: <span className="font-semibold text-black">{item.brandName}</span>
-                        </p>
+                        <p className="text-sm ">{item.brandName}</p>
                       )}
-                      <h3 className="font-semibold text-md mb-1 line-clamp-1">{item.name}</h3>
-                      <p className="text-gray-800 text-md line-clamp-2">
-                        {item.description}
-                      </p>
+                      <h3 className="text-lg">{item.name}</h3>
+                    </div>
+
+                    <div className="absolute bottom-4 left-4 right-4 text-white transition-all duration-500 group-hover:opacity-0 flex justify-between items-center">
+                      {item.brandName && (
+                        <p className="text-sm">{item.brandName}</p>
+                      )}
+                      <h3 className="text-lg">{item.name}</h3>
+                    </div>
+
+                    <div 
+                      ref={(el) => setDescriptionRef(el, index)}
+                      className="absolute top-20 bottom-12 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-y-auto scrollbar-thin scrollbar-thumb-white scrollbar-track-transparent max-h-[280px] touch-auto"
+                      style={{ WebkitOverflowScrolling: 'touch' }}
+                    >
+                      <p className="text-sm text-white mb-2">{item.description}</p>
                     </div>
                     
-                    <div className="pt-3 flex justify-between items-center">
-                      <span 
-                        className="text-sm font-medium flex items-center transition-colors duration-300" 
-                        style={{ color: accentColor }}
-                      >
-                        Learn more
-                        <ChevronRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
-                      </span>
-                      <div 
-                        className="w-8 h-0.5 group-hover:w-12 transition-all duration-300" 
-                        style={{ backgroundColor: highlightColor }}
-                      />
-                    </div>
+                    {isLongDescription && (
+                      <div className="absolute bottom-4 left-0 right-0 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <ChevronDown className="w-5 h-5 text-white animate-bounce" />
+                      </div>
+                    )}
                   </div>
                 </div>
-              </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

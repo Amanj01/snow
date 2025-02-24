@@ -12,12 +12,10 @@ const Carousel = ({ comments, title }) => {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-50px" });
 
-  const titleWords = title.split(" ");
-  const firstWord = titleWords[0];
-  const remainingWords = titleWords.slice(1).join(" ");
+ 
 
   return (
-    <section className="w-screen bg-gray-50">
+    <section className="w-screen bg-white">
       <div
         ref={containerRef}
         className="mb-20 md:min-w-[820px] pb-24 pt-7 md:pb-28 md:pt-10 container mx-auto"
@@ -28,11 +26,11 @@ const Carousel = ({ comments, title }) => {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 70 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-center"
+            className="text-left px-4 md:px-6 font-mansory"
           >
-            <h4 className="text-3xl md:text-5xl lg:text-6xl uppercase mb-6 md:mb-10 lg:mb-14">
-              <span className="text-blue-600">{firstWord}</span> <span className="text-black">{remainingWords}</span>
-            </h4>
+            <h4 className="text-3xl md:text-4xl lg:text-5xl uppercase mb-6 md:mb-10 lg:mb-14">
+              {title}
+             </h4>
           </motion.div>
         )}
 

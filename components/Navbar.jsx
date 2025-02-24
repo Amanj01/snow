@@ -158,8 +158,8 @@ const Navbar = () => {
                   <Link
                     key={item.label}
                     href={item.href}
-                    className={`menu text-md relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
-                      isExpanded ? "text-gray-800 hover:text-black after:bg-black" : "text-black after:bg-black"
+                    className={`menu text-sm relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
+                      isExpanded ? "text-gray-800 hover:text-black after:bg-black" : "text-white after:bg-black"
                     } transition-colors duration-500`}
                     onMouseEnter={() => setHoveredItem(item.label)}
                     onMouseLeave={() => setHoveredItem(null)}
@@ -172,8 +172,8 @@ const Navbar = () => {
               <div className="hidden lg:flex items-center">
                 <Link
                   href="/contact"
-                  className={`text-md hover:font-medium relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
-                    isExpanded ? "text-black after:bg-black" : "text-black after:bg-black"
+                  className={`text-sm hover:font-medium relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
+                    isExpanded ? "text-black after:bg-black" : "text-white after:bg-white"
                   } transition-colors duration-500`}
                 >
                   CONTACT
@@ -198,7 +198,7 @@ const Navbar = () => {
             onMouseEnter={() => setHoveredItem("BRANDS")}
             onMouseLeave={() => setHoveredItem(null)}
           >
-            <div className="container mx-auto px-4 py-6 flex items-center justify-center h-[100px] bg-slate-100">
+            <div className="container mx-auto px-4 py-6 flex items-center justify-center h-[100px]">
               <div className="grid grid-cols-4 md:grid-cols-8 gap-6 ">
                 {brands.map((brand) => (
                   <Link
