@@ -105,10 +105,8 @@ const ContactForm = () => {
 
   return (
     <div className="w-screen bg-gray-50 h-max flex justify-center ">
-      <div className="py-24 px-4 sm:px-6 lg:px-8 lg:pt-36 w-full max-w-5xl container mx-auto">
-        <h2 className="text-3xl md:text-5xl text-left mb-2 text-black uppercase">contact us</h2>
-        <div className="h-1 w-48 md:w-[305px] bg-red-500 mb-10"></div>
-
+      <div className="py-24 px-4 sm:px-6 md:pt-32 lg:px-8 lg:pt-36 w-full max-w-5xl container mx-auto">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl text-left mb-4 md:mb-8 font-mansory text-black uppercase">contact us</h2>
         {/* Status Messages */}
         {submitStatus.success && (
           <div className="bg-green-50 border border-green-200 p-6 text-center mb-8">

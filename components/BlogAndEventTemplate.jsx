@@ -177,7 +177,7 @@ const BlogAndEventTemplate = ({
   }
 
   return (
-    <div className={`${backgroundColor} pt-20 min-h-screen`}>
+    <div className={`${backgroundColor} pt-12 md:pt-20 min-h-screen`}>
       <motion.div
         className="min-h-screen px-4 md:px-8 pt-16 pb-24"
         ref={ref}
@@ -188,7 +188,7 @@ const BlogAndEventTemplate = ({
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
             <div>
-              <h1 className="text-5xl md:text-6xl font-mansory mb-4 text-black">{title}</h1>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-mansory mb-4 text-black">{title}</h1>
             </div>
           </div>
 

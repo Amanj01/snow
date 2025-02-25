@@ -60,7 +60,7 @@ export default function About() {
         >
           <motion.h1 
             variants={itemVariants}
-            className="text-3xl md:text-5xl text-black pt-12"
+            className="text-3xl md:text-4xl lg:text-5xl font-mansory text-black pt-12"
           >
             ABOUT
           </motion.h1>

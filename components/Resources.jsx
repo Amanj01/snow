@@ -145,7 +145,7 @@ const ResourcesSection = ({
     return (
       <section className="px-4 md:px-6 py-16 md:py-24 lg:pt-36 text-[#333333]">
         <div className="container mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-mansory uppercase mb-8 text-black">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-mansory uppercase mb-8 text-black">
             {title}
           </h1>
           <p className="text-gray-600">No resources available at this time.</p>
@@ -155,7 +155,7 @@ const ResourcesSection = ({
   }
 
   return (
-    <section className="px-4 md:px-6 py-16 md:py-24 lg:pt-36 text-[#333333]">
+    <section className="px-4 md:px-6 pb-16 pt-28 md:pt-32 lg:pt-36 text-[#333333]">
       <div className="container mx-auto flex flex-col">
         <div className="title flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-mansory uppercase mb-4 sm:mb-0 text-black">
