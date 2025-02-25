@@ -35,10 +35,10 @@ const Footer = () => {
           <p className="text-white">(555) 123-4567</p>
           <p className="text-white">contact@medicare.org</p>
           <div className="flex gap-4 mt-4">
-            <a href="#" className="text-white hover:text-blue-400"><FaFacebookF /></a>
-            <a href="#" className="text-white hover:text-blue-400"><FaTwitter /></a>
-            <a href="#" className="text-white hover:text-blue-400"><FaInstagram /></a>
-            <a href="#" className="text-white hover:text-blue-400"><FaLinkedinIn /></a>
+            <a href="#" className="text-white hover:text-blue-400 text-2xl"><FaFacebookF /></a>
+            <a href="#" className="text-white hover:text-blue-400 text-2xl"><FaTwitter /></a>
+            <a href="#" className="text-white hover:text-blue-400 text-2xl"><FaInstagram /></a>
+            <a href="#" className="text-white hover:text-blue-400 text-2xl"><FaLinkedinIn /></a>
           </div>
         </div>
       </div>
