@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 const HeroSection = ({ data }) => {
   return (
-    <div className="relative w-screen h-screen">
+    <div className="relative w-screen h-screen container mx-auto">
       <Image
         src={data.coverMedia}
         alt={data.title}
@@ -14,7 +14,7 @@ const HeroSection = ({ data }) => {
         style={{ objectFit: 'cover' }}
         className="z-0"
       />
-      <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+      <div className="absolute inset-0 bg-black/45 flex items-center justify-center">
         <div className="text-center text-white px-4 font-mansory uppercase max-w-4xl">
           <motion.h1
               initial={{ opacity: 0, y: 20 }}

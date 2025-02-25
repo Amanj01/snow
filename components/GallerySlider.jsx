@@ -14,7 +14,7 @@ const GallerySlider = ({ gallery, title }) => {
 
   return (
     <div className="w-full mb-12">
-      <h3 className="text-2xl font-bold mb-6 border-b border-gray-200 pb-2">
+      <h3 className="text-2xl md:text-4xl lg:text-5xl  font-mansory uppercase mb-6 border-b border-gray-200 pb-2">
         {title || 'Gallery'}
       </h3>
       

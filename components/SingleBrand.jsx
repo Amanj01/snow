@@ -6,9 +6,9 @@ import ItemSlider from "./BrandItemSlider";
 
 const BrandPage = ({ brand }) => {
   return (
-    <div className="container mx-auto py-8 pt-28 md:pt-[150px]">
+    <div className="py-8 pt-28 md:pt-[150px] overflow-hidden">
       {/* Hero Section */}
-      <div className="relative w-full h-96">
+      <div className="container mx-auto relative w-full h-96">
         <Image src={brand.heroImage} alt={brand.name} layout="fill" objectFit="cover" />
         <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50 text-white text-center p-4">
           <Image src={brand.logo} alt={`${brand.name} Logo`} width={100} height={100} className="mb-4" />
@@ -19,8 +19,7 @@ const BrandPage = ({ brand }) => {
 
       {/* Brand Items Section */}
       <div className="mt-36 ">
-        <h2 className="text-3xl md:text-5xl px-6 md:px-16 lg:px-24">Our Products</h2>
-        <ItemSlider items={brand.items} title={brand.name} />
+         <ItemSlider items={brand.items} title={brand.name} />
       </div>
 
       {/* Comments Carousel */}

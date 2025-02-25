@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, Heart, Pill, Stethoscope, Syringe, Microscope, Activity, ThermometerSun, Snowflake} from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
  
 
 const Navbar = () => {
@@ -11,6 +12,8 @@ const Navbar = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isBrandsDrawerOpen, setIsBrandsDrawerOpen] = useState(false);
+  const path = usePathname();
+  console.log("pathname: ",path)
 
   // Local medical brands data
   const brands = [
@@ -143,7 +146,7 @@ const Navbar = () => {
             }
           }}
         >
-          <div className="px-2 md:px-4 lg:px-6">
+          <div className="px-2 md:px-0 lg:px-6">
             <div className="flex justify-between items-center h-16">
               <div className="flex-shrink-0 flex items-center">
                 <Link href="/">
@@ -158,8 +161,8 @@ const Navbar = () => {
                   <Link
                     key={item.label}
                     href={item.href}
-                    className={`menu text-sm relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
-                      isExpanded ? "text-gray-800 hover:text-black after:bg-black" : "text-white after:bg-black"
+                    className={`menu text-[15px] relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
+                      isExpanded ? "text-gray-800 hover:text-black after:bg-black" : path== "/"? "text-white after:bg-black" : "text-black after:bg-black"
                     } transition-colors duration-500`}
                     onMouseEnter={() => setHoveredItem(item.label)}
                     onMouseLeave={() => setHoveredItem(null)}
@@ -172,7 +175,7 @@ const Navbar = () => {
               <div className="hidden lg:flex items-center">
                 <Link
                   href="/contact"
-                  className={`text-sm hover:font-medium relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
+                  className={`text-[15px] hover:font-medium relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
                     isExpanded ? "text-black after:bg-black" : "text-white after:bg-white"
                   } transition-colors duration-500`}
                 >

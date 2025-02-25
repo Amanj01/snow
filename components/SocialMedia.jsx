@@ -9,9 +9,10 @@ const icons = {
 
 const SocialMedia = ({ socials }) => {
   return (
-    <div className="mt-8 text-center bg-gray-50 container mx-auto w-screen px-2 ">
-      <h2 className="text-2xl md:text-5xl uppercase">Follow Us</h2>
-      <div className="flex flex-wrap justify-center gap-8 mt-6 md:mt-8">
+    <section className="px-2 md:px-0 lg:px-6">
+    <div className=" mt-8 h-max container mx-auto">
+      <h2 className="text-2xl md:text-5xl uppercase font-mansory text-left">reach us</h2>
+      <div className="flex flex-wrap gap-8 mt-6 md:mt-8">
         {socials.map(({ id, name, url }) => {
           const Icon = icons[name];
           return (
@@ -29,6 +30,8 @@ const SocialMedia = ({ socials }) => {
         })}
       </div>
     </div>
+    </section>
+
   );
 }
 

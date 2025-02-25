@@ -3,7 +3,7 @@ import HeroSection from './HeroDaynamic';
 import { data } from '../lib/hero-data';
 
 const Hero = () => {
-  return <div>{<HeroSection data={data}/>}</div>
+  return <HeroSection data={data}/>
 };
 
 export default Hero;

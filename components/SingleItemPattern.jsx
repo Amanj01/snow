@@ -2,49 +2,49 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
- import GallerySlider from "./GallerySlider";
+import GallerySlider from "./GallerySlider";
 
 const SingleItem = ({ data, type }) => {
   if (!data) return null;
 
   const { title, subtitle, coverImage, description, gallery } = data;
-  const isBlog = type === "blog";
-
+ 
   return (
-    <section className="px-4 md:px-6 py-16 md:py-24 text-[#333333] bg-gray-50">
-      <div className="container mx-auto pt-14">
-        {/* Header with title in style of ResourcesSection */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-mansory uppercase mb-4 sm:mb-0 text-black">
-            {title}
-          </h1>
-          <span className={`px-3 py-1 text-xs text-white font-medium ${isBlog ? "bg-red-500" : "bg-blue-700"}`}>
-            {isBlog ? "BLOG" : "MEDICAL DEVICE"}
-          </span>
-        </div>
+    <section className="text-[#333333]py-16 md:py-24">
+      {/* Full width image at the top */}
+      <div className="w-full h-screen relative container mx-auto">
+        <Image
+          src={coverImage}
+          alt={title}
+          layout="fill"
+          objectFit="cover"
+          className="w-full"
+        />
+      </div>
 
-        {/* Main content area with left border accent like resources */}
+      <div className="container mx-auto px-4 md:px-6 py-16 md:py-24">
+        {/* Title below the image */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="border-l-2 border-red-500 pl-4 transition-colors duration-300 mb-12"
+          className="mb-8"
         >
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-mansory uppercase mb-4 text-black">
+            {title}
+          </h1>
+          
           {/* Subtitle */}
           <p className="text-sm text-gray-600 mb-6">{subtitle}</p>
+        </motion.div>
 
-          {/* Main Image */}
-          <div className="w-full h-96 relative mb-8">
-            <Image
-              src={coverImage}
-              alt={title}
-              layout="fill"
-              objectFit="cover"
-              className="shadow-md"
-            />
-          </div>
-
-          {/* Description */}
+        {/* Description */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-12"
+        >
           <div className="mb-8">
             <p className="text-gray-700 leading-relaxed">{description}</p>
           </div>
@@ -52,20 +52,18 @@ const SingleItem = ({ data, type }) => {
           <hr className="border-t border-gray-200 w-full my-8" />
         </motion.div>
 
-        {/* Gallery Section */}
+        {/* Gallery Section - with single title */}
         {gallery && gallery.length > 0 && (
-          <div className="mt-12">
-            <div className="flex items-center gap-4 mb-6">
-              <h2 className="text-2xl uppercase text-black">
-                {isBlog ? "Supporting Media" : "Product Gallery"}
-              </h2>
-              <div className="flex-grow h-[1px] bg-gray-300"></div>
-            </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-12"
+          >
             
-            <GallerySlider gallery={gallery} title="" />
-          </div>
+            <GallerySlider gallery={gallery} />
+          </motion.div>
         )}
-
       </div>
     </section>
   );

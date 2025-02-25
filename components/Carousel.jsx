@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import Link from "next/link";
 import "swiper/css";
 import "swiper/css/autoplay";
 
@@ -12,13 +13,11 @@ const Carousel = ({ comments, title }) => {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-50px" });
 
- 
-
   return (
-    <section className="w-screen bg-white">
+    <section className="w-screen px-2 md:px-4 lg:px-6">
       <div
         ref={containerRef}
-        className="mb-20 md:min-w-[820px] pb-24 pt-7 md:pb-28 md:pt-10 container mx-auto"
+        className="mb-20 md:min-w-[820px] pb-24 pt-7 md:pt-10 container mx-auto"
       >
         {/* Title Section */}
         {title && (
@@ -26,11 +25,11 @@ const Carousel = ({ comments, title }) => {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 70 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-left px-4 md:px-6 font-mansory"
+            className="text-left font-mansory"
           >
             <h4 className="text-3xl md:text-4xl lg:text-5xl uppercase mb-6 md:mb-10 lg:mb-14">
               {title}
-             </h4>
+            </h4>
           </motion.div>
         )}
 
@@ -68,26 +67,40 @@ const Carousel = ({ comments, title }) => {
               <SwiperSlide key={index}>
                 <div
                   className={`card__wrapper bg-background rounded-md shadow-lg transition-transform duration-500 ease-in-out
-                ${index === activeIndex ? "scale-105" : "scale-90"}`}
+                  ${index === activeIndex ? "scale-105" : "scale-90"}`}
                 >
-                  <div className="card__media relative bg-white text-black p-6 md:min-h-[500px] flex flex-col justify-center items-center">
-                    <div className="card__content w-full h-full flex flex-col justify-between py-8">
+                  <div className="card__media relative bg-white text-black p-6 md:min-h-[500px] flex flex-col justify-between">
+                    {/* Header with brand and name in same row */}
+                    <div className="flex justify-between items-center mb-8">
                       {item.brand && (
-                        <h3 className="text-xl md:text-3xl text-center text-blue-600 uppercase mb-8">
+                        <Link 
+                          href={`/brands/${item.id || item.brandId }`}
+                          className="text-xl font-poppins text-black capitalize hover:text-blue-600 transition-colors duration-300"
+                        >
                           {item.brand}
-                        </h3>
-                      )}
-                      {item.review && (
-                        <p className="text-2xl md:text-4xl text-gray-500 font-light italic text-center mb-12">
-                          "{item.review}"
-                        </p>
-                      )}
-                      {item.name && (
-                        <p className="text-lg md:text-2xl font-bold text-center text-teal-600">
-                          - {item.name}
-                        </p>
+                        </Link>
                       )}
                     </div>
+                    
+                    {/* Special styled testimonial */}
+                    {item.review && (
+                      <div className="my-8 relative">
+                        <div className="absolute -top-6 left-0 text-6xl text-blue-500 opacity-50">"</div>
+                        <p className="text-2xl md:text-3xl text-gray-700 font-poppinsRegular uppercase italic text-center px-6 py-4 relative z-10">
+                          {item.review}
+                        </p>
+                        <div className="absolute -bottom-6 right-0 text-6xl text-blue-500 opacity-50">"</div>
+                      </div>
+                    )}
+                    
+                    {/* User name with decorative element */}
+                    {item.name && (
+                      <div className="mt-auto text-left">
+                         <p className="text-lg font-poppins text-black capitalize">
+                          {item.name}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </SwiperSlide>
@@ -99,4 +112,4 @@ const Carousel = ({ comments, title }) => {
   );
 };
 
-export default Carousel;
+  export default Carousel;

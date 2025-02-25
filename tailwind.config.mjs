@@ -13,6 +13,8 @@ export default {
       },
       fontFamily: {
         mansory: ["Mansory", "sans-serif"],
+        poppins : ["Poppins", "sans-serif"],
+        poppinsRegular: ["Poppins-Regular", "sans-serif"],
       },
     },
   },

@@ -202,21 +202,24 @@ const ItemSlider = ({
       initial="hidden"
       animate={isVisible ? "visible" : "hidden"}
       variants={animation}
-      className="bg-white"
+      className="w-screen "
     >
-      <div className="w-screen container mx-auto pt-16 md:pt-20 lg:pt-24 pb-16">
-        <div className="flex items-center justify-between px-2 md:px-0 lg:px-6 mb-10 md:mb-16">
-          <h1 className="text-2xl md:text-4xl lg:text-5xl text-left uppercase font-mansory">
-            {title}
-          </h1>
-          <button
-            onClick={handleScrollRight}
-            className="ml-4 p-2 transition-colors duration-200 text-white"
-            style={{ backgroundColor: accentColor }}
-            aria-label="Scroll right"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
+      <div className="pt-16 md:pt-20 lg:pt-24 pb-16">
+        <div className="px-2 md:px-0 lg:px-6 mb-10 md:mb-16 ">
+          <div className="container mx-auto flex items-center justify-between">
+            <h1 className="text-2xl md:text-4xl lg:text-5xl text-left uppercase font-mansory">
+              {title}
+            </h1>
+            <button
+              onClick={handleScrollRight}
+              className="p-2 transition-colors duration-200 text-white"
+              style={{ backgroundColor: accentColor }}
+              aria-label="Scroll right"
+            >
+             <ChevronRight className="w-4 h-4 md:w-6 md:h-6" />
+            </button>
+          </div>
+ 
         </div>
 
         <div className="relative">
@@ -224,7 +227,7 @@ const ItemSlider = ({
 
           <div
             ref={scrollContainerRef}
-            className="grid grid-flow-col gap-6 overflow-x-auto scrollbar-hide pb-4"
+            className="grid grid-flow-col gap-6 overflow-x-auto scrollbar-hide pb-4 container mx-auto"
           >
             {items.map((item, index) => {
               const isLongDescription = item.description && item.description.length > 150;

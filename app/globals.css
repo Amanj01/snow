@@ -25,6 +25,16 @@
     src: url('./fonts/Mansory.otf') format('opentype');
     font-weight: 600;
   }
+  @font-face {
+    font-family: 'Poppins';
+    src: url('./fonts/Poppins-ThinItalic.ttf') format('opentype');
+    font-weight: 500;
+  }
+  @font-face {
+    font-family: 'Poppins-Regular';
+    src: url('./fonts/Poppins-Regular.ttf') format('opentype');
+    font-weight: 500;
+  }
 
   
 }

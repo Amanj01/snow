@@ -1,90 +1,53 @@
-import React from 'react';
-import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
+import Image from "next/image";
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white pt-12 pb-8 ">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          {/* About Section */}
-          <div className="mb-6 md:mb-0">
-            <h3 className="text-2xl font-semibold mb-4">MediCare Community</h3>
-            <p className="text-white text-md leading-relaxed">
-              Dedicated to advancing healthcare through education, research, and community outreach. 
-              Together for a healthier tomorrow.
-            </p>
-          </div>
-
-          {/* Quick Links */}
-          <div className="mb-6 md:mb-0">
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {['Home', 'About Us', 'Services', 'Blog'].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-white hover:text-white text-md transition-colors">
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div className="mb-6 md:mb-0">
-            <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
-            <div className="space-y-3 text-white">
-              <div className="flex items-center gap-2">
-                <FaMapMarkerAlt className="flex-shrink-0" />
-                <span className="text-md">123 Medical Drive, Health City, HC 4567</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FaPhone className="flex-shrink-0" />
-                <span className="text-md">(555) 123-4567</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FaEnvelope className="flex-shrink-0" />
-                <span className="text-md">contact@medicare.org</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Social Media */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
-            <div className="flex space-x-4">
-              {[
-                { icon: FaFacebook, name: 'Facebook' },
-                { icon: FaTwitter, name: 'Twitter' },
-                { icon: FaLinkedin, name: 'LinkedIn' },
-                { icon: FaInstagram, name: 'Instagram' },
-              ].map((SocialIcon) => (
-                <a
-                  key={SocialIcon.name}
-                  href="#"
-                  className="text-white hover:text-blue-400 transition-colors"
-                  aria-label={SocialIcon.name}
-                >
-                  <SocialIcon.icon className="w-6 h-6" />
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Copyright */}
-        <div className="border-t border-slate-800 pt-8 text-center">
-          <p className="text-md text-gray-300">
-            © {new Date().getFullYear()} MediCare Community. All rights reserved.
-          </p>
-          <p className="text-xs text-gray-300 mt-2">
-            <a href="#" className="hover:text-gray-300">Privacy Policy</a> | 
-            <a href="#" className="hover:text-gray-300 ml-2">Terms of Service</a>
+    <footer className="bg-gray-800 text-white py-10 px-6">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+        {/* Snow Medical Section */}
+        <div>
+          <h2 className="text-2xl font-bold">Medical community</h2>
+          <Image src="/whiteLogo.png" alt="Snow Medical" width={100} height={100} />
+          <p className="mt-2 text-white">
+            Providing top-tier medical services with a commitment to excellence and care.
           </p>
         </div>
+
+        {/* Quick Links Section */}
+        <div className="flex flex-col items-center md:items-start">
+          <h2 className="text-xl font-semibold">Quick Links</h2>
+          <ul className="mt-2 space-y-2">
+            <li><a href="/" className="text-white hover:text-blue-500">Home</a></li>
+            <li><a href="/about-us" className="text-white hover:text-blue-500">About Us</a></li>
+            <li><a href="/brands" className="text-white hover:text-blue-500">Brands</a></li>
+            <li><a href="/blogs" className="text-white hover:text-blue-500">Blogs</a></li>
+            <li><a href="/events" className="text-white hover:text-blue-500">Events</a></li>
+            <li><a href="/resources" className="text-white hover:text-blue-500">Resources</a></li>
+          </ul>
+        </div>
+
+        {/* Contact Section */}
+        <div>
+          <h2 className="text-xl font-semibold">Contact</h2>
+          <p className="mt-2 text-white">123 Medical Drive, Health City, HC 4567</p>
+          <p className="text-white">(555) 123-4567</p>
+          <p className="text-white">contact@medicare.org</p>
+          <div className="flex space-x-4 mt-4">
+            <a href="#" className="text-white hover:text-blue-400"><FaFacebookF /></a>
+            <a href="#" className="text-white hover:text-blue-400"><FaTwitter /></a>
+            <a href="#" className="text-white hover:text-blue-400"><FaInstagram /></a>
+            <a href="#" className="text-white hover:text-blue-400"><FaLinkedinIn /></a>
+          </div>
+        </div>
+      </div>
+      
+      {/* Copyright Section */}
+      <div className="text-center mt-8 text-gray-500 border-t border-gray-700 pt-4">
+        &copy; {new Date().getFullYear()} Snow Medical. All rights reserved.
       </div>
     </footer>
   );
 };
-
 
 export default Footer;
