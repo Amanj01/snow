@@ -126,7 +126,7 @@ const BlogAndEventTemplate = ({
         <button 
           key={i} 
           onClick={() => handlePageChange(i)}
-          className={`w-10 h-10 ${i === currentPage ? 'bg-white text-[#0052CC] border border-[#0052CC]' : textAccentColor}`}
+          className={`w-10 h-10 ${i === currentPage && title=="BLOG" ? 'bg-white text-[#0052CC] border border-[#0052CC]' : textAccentColor} ${i === currentPage && title=="EVENTS" ? 'bg-white text-[#FF4500] border border-[#FF4500]' : textAccentColor}`}
           style={{ backgroundColor: i === currentPage ? accentColor : 'transparent' }}
         >
           {i}

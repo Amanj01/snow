@@ -176,7 +176,7 @@ const Navbar = () => {
                 <Link
                   href="/contact"
                   className={`text-[15px] hover:font-medium relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
-                    isExpanded ? "text-black after:bg-black" : "text-white after:bg-white"
+                    isExpanded ? "text-black after:bg-black" : path== "/"? "text-white after:bg-black" : "text-black after:bg-black"
                   } transition-colors duration-500`}
                 >
                   CONTACT
@@ -186,7 +186,7 @@ const Navbar = () => {
               <div className="lg:hidden flex items-center">
                 <button
                   onClick={toggleMenu}
-                  className="inline-flex items-center justify-center p-2 rounded-md text-black hover:text-gray-500 focus:outline-none"
+                  className={`inline-flex items-center justify-center p-2 rounded-md ${path=="/" ? "text-white hover:text-gray-100 " : "text-black hover:text-gray-500 "} focus:outline-none`}
                 >
                   {isOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
