@@ -287,7 +287,6 @@ const ItemSlider = ({
             transition: isSliding ? 'opacity 0.4s ease-in' : 'opacity 0.9s ease-out'
           }}
         />
-
         {/* Right fade with dynamic intensity */}
         <div 
           className="absolute top-0 right-0 w-28 h-full pointer-events-none z-10"
