@@ -90,7 +90,7 @@ export default function About() {
           >
             <motion.h2 
               variants={itemVariants}
-              className="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-red-500 pb-2 inline-block"
+              className="text-3xl md:text-4xl lg:text-5xl font-mansory mb-6 text-black uppercase border-b-2 border-red-500 pb-2 inline-block"
             >
               Advancing Medical Innovation
             </motion.h2>
@@ -106,18 +106,6 @@ export default function About() {
             <motion.p variants={itemVariants} className="text-lg mb-6 text-gray-700">
               From AI-powered monitoring systems to precision robotics, we combine advanced technology with medical expertise to improve patient lives worldwide.
             </motion.p>
-            
-            <motion.div
-              variants={itemVariants}
-              className="flex space-x-4 mt-6"
-            >
-              <button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 transition duration-300 ease-in-out shadow-md">
-                Our Mission
-              </button>
-              <button className="border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-6 py-3 transition duration-300 ease-in-out shadow-md">
-                Meet Our Team
-              </button>
-            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -131,10 +119,9 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-4 text-blue-700">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-mansory uppercase mb-4 text-blue-700">
               Our Commitment to the Medical Community
             </h2>
-            <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
             <p className="text-lg text-gray-700 max-w-3xl mx-auto">
               We collaborate closely with healthcare professionals to develop solutions that meet real clinical needs and improve workflow efficiency.
             </p>

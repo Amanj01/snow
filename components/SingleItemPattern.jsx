@@ -12,7 +12,7 @@ const SingleItem = ({ data, type }) => {
   return (
     <section className="text-[#333333]py-16 md:py-24">
       {/* Full width image at the top */}
-      <div className="w-full h-screen relative container mx-auto">
+      <div className="w-full h-screen relative">
         <Image
           src={coverImage}
           alt={title}

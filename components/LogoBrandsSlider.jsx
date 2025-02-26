@@ -3,6 +3,7 @@ import React, { useEffect , useState} from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Pill, Stethoscope, Syringe, Microscope, Activity, ThermometerSun} from "lucide-react";
 import Slider from 'react-infinite-logo-slider';
+import Link from 'next/link';
 
 const LogoSlider = () => {
   
@@ -107,7 +108,7 @@ const brandLogos = [
       <Slider
         width={sliderWidth}
         duration={12}
-        pauseOnHover={false}
+        pauseOnHover={true}
         blurBorders={true}
         blurBorderColor="white"
       >
@@ -116,9 +117,11 @@ const brandLogos = [
             <motion.div
               className="p-4 transition-all duration-500 group"
             >
+            <Link href={`/brands/${item.id}`}>
               {React.cloneElement(item.image, { 
-                className: 'transition-all duration-300 grayscale group-hover:grayscale-0 text-gray-600 group-hover:text-blue-600 w-[45px] h-[45px] md:w-[70px] md:h-[70px]'
+              className: 'transition-all duration-300 grayscale group-hover:grayscale-0 text-gray-600 group-hover:text-blue-600 w-[45px] h-[45px] md:w-[70px] md:h-[70px]'
               })}
+            </Link>
             </motion.div>
           </Slider.Slide>
         ))}

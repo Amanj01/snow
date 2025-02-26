@@ -13,7 +13,6 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isBrandsDrawerOpen, setIsBrandsDrawerOpen] = useState(false);
   const path = usePathname();
-  console.log("pathname: ",path)
 
   // Local medical brands data
   const brands = [
