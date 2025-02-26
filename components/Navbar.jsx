@@ -149,11 +149,34 @@ const Navbar = () => {
           <div className="px-2 md:px-0 lg:px-6">
             <div className="flex justify-between items-center h-16">
               <div className="flex-shrink-0 flex items-center">
-                <Link href="/">
-                  <div className="flex items-center gap-2">
-                  <Image src="/snow.png" alt="Logo" width={100} height={100} />
-                  </div>
-                </Link>
+                {/* logo section */}
+              <Link href="/">
+                {path == "/" ?
+                <div className="relative">
+                <Image
+                  width={105}
+                  height={60}
+                  quality={100}
+                  src={"/white.png"}
+                  alt="logo"
+                  className={`absolute transition-opacity duration-700 ${
+                    isExpanded ? 'opacity-0' : 'opacity-100'
+                  }`}
+                />
+                <Image
+                  width={105}
+                  height={60}
+                  quality={100}
+                  src={"/snow.png"}
+                  alt="logo"
+                  className={`transition-opacity duration-700 ${
+                    isExpanded ? 'opacity-100' : 'opacity-0'
+                  }`}
+                />
+              </div> :
+              <Image width={105} height={60} quality={100} src={"/snow.png"} alt="logo" />
+              }
+              </Link>
               </div>
 
               <div className="hidden lg:flex items-center justify-center gap-8">

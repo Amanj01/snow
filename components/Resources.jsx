@@ -170,7 +170,7 @@ const ResourcesSection = ({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex flex-col border-l-2 border-red-500 pl-4 hover:border-blue-700 transition-colors duration-300 pb-2"
+              className="group flex flex-col border-l-2 border-red-500 pl-4 hover:border-blue-700 transition-colors duration-300 pb-2"
             >
               <Link href={resource.url} target="_blank" rel="noopener noreferrer">
                 <div className="flex flex-col justify-between h-full">

@@ -177,7 +177,7 @@ const BlogAndEventTemplate = ({
   }
 
   return (
-    <div className={`${backgroundColor} pt-12 md:pt-20 min-h-screen`}>
+    <div className={`pt-12 md:pt-20 min-h-screen`}>
       <motion.div
         className="min-h-screen px-4 md:px-8 pt-16 pb-24"
         ref={ref}

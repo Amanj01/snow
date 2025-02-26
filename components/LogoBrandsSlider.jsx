@@ -1,10 +1,26 @@
 "use client"
-import React from 'react';
+import React, { useEffect , useState} from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Pill, Stethoscope, Syringe, Microscope, Activity, ThermometerSun} from "lucide-react";
 import Slider from 'react-infinite-logo-slider';
 
 const LogoSlider = () => {
+  
+  const [sliderWidth, setSliderWidth] = useState("200px");
+  useEffect(() => {
+    const handleResize = () => {
+      setSliderWidth(window.innerWidth < 780 ? "100px" : "200px");
+    };
+
+    // Set initial width
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
 const brandLogos = [
   {
@@ -28,19 +44,34 @@ const brandLogos = [
     image: <Syringe size={65}/>
     },
     {
-    id: 5,
-    name: 'Siemens Healthineers',
-    image: <Microscope size={65}/>,
-  },
-  {
-    id: 6,
-    name: 'Philips Healthcare',
-    image: <Activity size={65}/>
+      id: 2,
+      name: 'Philips Healthcare',
+      image: <Pill size={65}/>,
     },
-  {
-    id: 7,
-    name: 'Medtronic',
-    image: <ThermometerSun size={65}/>,
+    {
+      id: 3,
+      name: 'Medtronic',
+      image: <Stethoscope size={65}/>,
+    },
+    {
+      id: 4,
+      name: '3M Littmann',
+      image: <Syringe size={65}/>
+    },
+    {
+      id: 5,
+      name: 'Siemens Healthineers',
+      image: <Microscope size={65}/>,
+    },
+    {
+      id: 6,
+      name: 'Philips Healthcare',
+      image: <Activity size={65}/>
+    },
+    {
+      id: 7,
+      name: 'Medtronic',
+      image: <ThermometerSun size={65}/>,
     }
 ]
   // const [logos, setLogos] = useState([]);
@@ -70,12 +101,11 @@ const brandLogos = [
   // if (loading) {
   //   return <div>Loading...</div>;
   // }
-
-
+  
   return (
-    <div className='py-6 md:py-10 bg-white relative my-16'>
+    <div className='pb-8 md:py-10 bg-white relative lg:mb-16'>
       <Slider
-        width="180px"
+        width={sliderWidth}
         duration={12}
         pauseOnHover={false}
         blurBorders={true}
@@ -87,7 +117,7 @@ const brandLogos = [
               className="p-4 transition-all duration-500 group"
             >
               {React.cloneElement(item.image, { 
-                className: 'transition-all duration-300 grayscale group-hover:grayscale-0 text-gray-600 group-hover:text-blue-600'
+                className: 'transition-all duration-300 grayscale group-hover:grayscale-0 text-gray-600 group-hover:text-blue-600 w-[45px] h-[45px] md:w-[70px] md:h-[70px]'
               })}
             </motion.div>
           </Slider.Slide>
@@ -96,5 +126,4 @@ const brandLogos = [
     </div>
   );
 }
-
 export default LogoSlider;

@@ -10,7 +10,7 @@ const page = () => {
     <div className=''>
       <Hero />
       <BrandItems />
-      <Carousel comments={comments} title={"What People Say"} />
+      <Carousel comments={comments} title={"user testimonials"} brandAppearance={true} />
       <LogoSlider />
     </div>
   )

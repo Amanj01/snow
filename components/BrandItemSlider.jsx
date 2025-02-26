@@ -3,15 +3,14 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ChevronRight, ChevronDown } from "lucide-react";
+import Link from "next/link";
 
 const ItemSlider = ({
   items,
   title,
   accentColor = "#0052CC",
-  highlightColor = "#FF3B30",
   autoScrollInterval = 4000,
-  basePath = "/products"
-}) => {
+ }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [activeDescriptionRefs, setActiveDescriptionRefs] = useState({});
@@ -202,11 +201,11 @@ const ItemSlider = ({
       initial="hidden"
       animate={isVisible ? "visible" : "hidden"}
       variants={animation}
-      className="w-screen "
+      className="w-full pt-16 md:pt-20 lg:pt-24 pb-16"
     >
-      <div className="pt-16 md:pt-20 lg:pt-24 pb-16">
+      <div className="container mx-auto">
         <div className="px-2 md:px-0 lg:px-6 mb-10 md:mb-16 ">
-          <div className="container mx-auto flex items-center justify-between">
+          <div className=" flex items-center justify-between">
             <h1 className="text-2xl md:text-4xl lg:text-5xl text-left uppercase font-mansory">
               {title}
             </h1>
@@ -261,7 +260,12 @@ const ItemSlider = ({
                     
                     <div className="absolute top-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
                       {item.brandName && (
-                        <p className="text-sm ">{item.brandName}</p>
+                        <Link
+                        href={`/brands/${item.id || item.brandId}`}
+                        className="text-sm capitalize hover:text-blue-600 transition-colors duration-300"
+                        >
+                          {item.brandName}
+                        </Link>
                       )}
                       <h3 className="text-lg">{item.name}</h3>
                     </div>
@@ -270,7 +274,7 @@ const ItemSlider = ({
                       {item.brandName && (
                         <p className="text-sm">{item.brandName}</p>
                       )}
-                      <h3 className="text-lg">{item.name}</h3>
+                      <h3 className="text-lg ">{item.name}</h3>
                     </div>
 
                     <div 

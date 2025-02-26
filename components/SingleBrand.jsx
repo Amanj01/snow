@@ -24,7 +24,7 @@ const BrandPage = ({ brand }) => {
 
       {/* Comments Carousel */}
       <div className="mt-10">
-         <Carousel comments={brand.comments} title={"What People Say"} />
+         <Carousel comments={brand.comments} title={"user testimonials"} brandAppearance={false} />
       </div>
 
       {/* Resources Section */}

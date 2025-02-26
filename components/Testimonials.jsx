@@ -4,7 +4,7 @@ import Carousel from '@/components/Carousel'
 const Testimonials = () => {
   return (
     <div>
-      <Carousel data={comments} title="Users Feedback" />
+      <Carousel data={comments} title="Users Feedback" brandAppearance={true}/>
     </div>
   )
 }

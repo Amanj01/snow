@@ -7,7 +7,7 @@ import Link from "next/link";
 import "swiper/css";
 import "swiper/css/autoplay";
 
-const Carousel = ({ comments, title }) => {
+const Carousel = ({ comments, title, brandAppearance }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
   const containerRef = useRef(null);
@@ -17,7 +17,7 @@ const Carousel = ({ comments, title }) => {
     <section className="w-screen px-2 md:px-4 lg:px-6">
       <div
         ref={containerRef}
-        className="mb-20 md:min-w-[820px] pb-24 pt-7 md:pt-10 container mx-auto"
+        className="mb-16 md:min-w-[820px] pt-7 md:pt-10 container mx-auto"
       >
         {/* Title Section */}
         {title && (
@@ -70,21 +70,9 @@ const Carousel = ({ comments, title }) => {
                   ${index === activeIndex ? "scale-105" : "scale-90"}`}
                 >
                   <div className="card__media relative bg-white text-black p-6 md:min-h-[500px] flex flex-col justify-between">
-                    {/* Header with brand and name in same row */}
-                    <div className="flex justify-between items-center mb-8">
-                      {item.brand && (
-                        <Link 
-                          href={`/brands/${item.id || item.brandId }`}
-                          className="text-xl font-poppins text-black capitalize hover:text-blue-600 transition-colors duration-300"
-                        >
-                          {item.brand}
-                        </Link>
-                      )}
-                    </div>
-                    
                     {/* Special styled testimonial */}
                     {item.review && (
-                      <div className="my-8 relative">
+                      <div className="my-8 relative top-1/2 transform translate-y-1/2">
                         <div className="absolute -top-6 left-0 text-6xl text-blue-500 opacity-50">"</div>
                         <p className="text-2xl md:text-3xl text-gray-700 font-poppinsRegular uppercase italic text-center px-6 py-4 relative z-10">
                           {item.review}
@@ -93,14 +81,22 @@ const Carousel = ({ comments, title }) => {
                       </div>
                     )}
                     
-                    {/* User name with decorative element */}
-                    {item.name && (
-                      <div className="mt-auto text-left">
-                         <p className="text-lg font-poppins text-black capitalize">
+                    {/* Footer with brand and name in same row */}
+                    <div className="mt-auto flex justify-between items-center">
+                      {item.name && (
+                        <p className="text-lg font-poppins text-black capitalize">
                           {item.name}
                         </p>
-                      </div>
-                    )}
+                      )}
+                      {item.brand && brandAppearance === true && (
+                        <Link 
+                          href={`/brands/${item.id || item.brandId}`}
+                           className="text-xl font-poppins text-black capitalize hover:text-blue-600 transition-colors duration-300"
+                        >
+                          {item.brand}
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 </div>
               </SwiperSlide>
