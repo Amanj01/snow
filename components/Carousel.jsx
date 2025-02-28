@@ -45,6 +45,7 @@ const Carousel = ({ comments, title, brandAppearance }) => {
               spaceBetween={24}
               slidesPerView={1}
               centeredSlides={true}
+              pauseOnMouseEnter={true}
               loop={true}
               speed={800}
               modules={[Autoplay]}
@@ -73,7 +74,7 @@ const Carousel = ({ comments, title, brandAppearance }) => {
                       {item.review && (
                         <div className="my-8 relative top-1/2 transform translate-y-1/2">
                           <div className="absolute -top-6 left-0 text-6xl text-blue-500 opacity-50">"</div>
-                          <div className="max-h-[150px] overflow-y-auto scrollbar-hide mb-4">
+                          <div className="max-h-[150px] overflow-y-auto scrollbar-hide">
                             <p className="text-2xl md:text-3xl text-gray-700 font-poppinsRegular uppercase italic text-center px-6 py-4 relative z-10">
                               {item.review}
                             </p>
