@@ -1,9 +1,10 @@
 import BlogAndEventTemplate from "@/components/BlogAndEventTemplate";
 import { sampleEvents } from "@/lib/blog-event-data";
+import Head from "next/head";
 const EventsPage = ({ events }) => {
   return (
     <>
-      <Head> 
+      <Head>
       <title>Snow Events || Snow Medical</title>
       <meta name="description" content="Read our latest events on snow medical." />
       </Head>

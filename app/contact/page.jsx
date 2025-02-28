@@ -1,4 +1,5 @@
 "use client";
+import Head from 'next/head';
 import React, { useState } from 'react';
 
 const ContactForm = () => {
@@ -103,7 +104,7 @@ const ContactForm = () => {
 
   return (
     <>
-      <Head> 
+      <Head>
       <title>Contact us || Snow Medical</title>
       <meta name="description" content="Contaxt snow medical." />
       </Head>

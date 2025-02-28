@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScrollProvider";
+import Head from "next/head";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,13 +41,9 @@ export const metadata = {
     images: ['/snow.png'],
   },
   icons: {
-    icon: [
-      { url: '/snow.png', sizes: '16x16', type: 'image/png' },
-      { url: '/snow.png', sizes: '32x32', type: 'image/png' },
-      { url: '/snow.png', sizes: '48x48', type: 'image/png' }
-    ],
-    shortcut: '/snow.png',
-    apple: { url: '/snow.png', sizes: '180x180', type: 'image/png' }
+    icon: "/snow.png",
+    shortcut: "/snow.png",
+    apple: "/snow.png",
   },
   robots: {
     index: true,
@@ -54,9 +51,17 @@ export const metadata = {
   },
   viewport: 'width=device-width, initial-scale=1',
   themeColor: '#ffffff',
-};export default function RootLayout({ children }) {
+};
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head> 
+      <title>Snow || Snow Medical</title>
+      <meta name="keywords" content="medical, healthcare, snow medical, medical community" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="icon" type="image/png" sizes="32x32" href="/snow.png" />
+      <meta name="description" content="snow is a medical community." />
+      </Head>
       <body
         className=""
       >
