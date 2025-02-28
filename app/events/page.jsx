@@ -2,7 +2,12 @@ import BlogAndEventTemplate from "@/components/BlogAndEventTemplate";
 import { sampleEvents } from "@/lib/blog-event-data";
 const EventsPage = ({ events }) => {
   return (
-    <BlogAndEventTemplate 
+    <>
+      <Head> 
+      <title>Snow Events || Snow Medical</title>
+      <meta name="description" content="Read our latest events on snow medical." />
+      </Head>
+      <BlogAndEventTemplate 
       items={sampleEvents}
       title="EVENTS"
       itemsCountText={`(${sampleEvents.length}) UPCOMING EVENTS`}
@@ -11,6 +16,9 @@ const EventsPage = ({ events }) => {
       accentColor="bg-red-500"  // Different accent color for events
       textAccentColor="text-[#FF4500]"
     />
+
+    </>
+
   );
 };
 
