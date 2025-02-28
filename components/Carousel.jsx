@@ -17,7 +17,7 @@ const Carousel = ({ comments, title, brandAppearance }) => {
     <section className="w-screen px-2 md:px-4 lg:px-6">
       <div
         ref={containerRef}
-        className="mb-16 md:min-w-[820px] pt-7 md:pt-10 container mx-auto"
+        className="md:min-w-[820px] container mx-auto"
       >
         {/* Title Section */}
         {title && (
@@ -27,7 +27,7 @@ const Carousel = ({ comments, title, brandAppearance }) => {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="text-left font-mansory"
           >
-            <h4 className="text-3xl md:text-4xl lg:text-5xl uppercase mb-6 md:mb-10 lg:mb-14">
+            <h4 className="text-3xl md:text-4xl lg:text-5xl uppercase mb-0 md:mb-16">
               {title}
             </h4>
           </motion.div>
@@ -48,6 +48,7 @@ const Carousel = ({ comments, title, brandAppearance }) => {
               loop={true}
               speed={800}
               modules={[Autoplay]}
+              pauseOnMouseEnter={true}
               autoplay={{
                 delay: 2000,
                 disableOnInteraction: false,
@@ -68,29 +69,29 @@ const Carousel = ({ comments, title, brandAppearance }) => {
                     className={`card__wrapper bg-background rounded-sm md:shadow-md transition-transform duration-500 ease-in-out
                     ${index === activeIndex ? "scale-105" : "scale-90"}`}
                   >
-                    <div className="card__media relative bg-white text-black p-6 md:min-h-[500px] flex flex-col justify-between">
+                    <div className="card__media relative bg-white text-black p-4 md:p-6 min-h-[300px] md:min-h-[500px] flex flex-col justify-between">
                       {/* Special styled testimonial */}
                       {item.review && (
-                        <div className="my-8 relative top-1/2 transform translate-y-1/2">
-                          <div className="absolute -top-6 left-0 text-6xl text-blue-500 opacity-50">"</div>
-                          <p className="text-2xl md:text-3xl text-gray-700 font-poppinsRegular uppercase italic text-center px-6 py-4 relative z-10">
+                        <div className="my-4 md:my-8 relative">
+                          <div className="absolute -top-6 left-0 text-4xl md:text-6xl text-blue-500 opacity-50">"</div>
+                          <p className="text-lg md:text-2xl lg:text-3xl text-gray-700 font-poppinsRegular uppercase italic text-center px-3 md:px-6 py-2 md:py-4 relative z-10 overflow-y-auto max-h-[250px] md:max-h-[350px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] cursor-grab active:cursor-grabbing select-none">
                             {item.review}
                           </p>
-                          <div className="absolute -bottom-6 right-0 text-6xl text-blue-500 opacity-50">"</div>
+                          <div className="absolute -bottom-6 right-0 text-4xl md:text-6xl text-blue-500 opacity-50">"</div>
                         </div>
                       )}
                     
                       {/* Footer with brand and name in same row */}
-                      <div className="mt-8 flex justify-between items-center">
+                      <div className="mt-4 md:mt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
                         {item.name && (
-                          <p className="text-lg font-poppins text-black capitalize">
+                          <p className="text-base md:text-lg font-poppins text-black capitalize line-clamp-2">
                             {item.name}
                           </p>
                         )}
                         {item.brand && brandAppearance === true && (
                           <Link 
                             href={`/brands/${item.id || item.brandId}`}
-                           className="text-xl font-poppins text-black capitalize hover:text-blue-600 transition-colors duration-300"
+                            className="text-base md:text-xl font-poppins text-black capitalize hover:text-blue-600 transition-colors duration-300 line-clamp-1"
                           >
                             {item.brand}
                           </Link>

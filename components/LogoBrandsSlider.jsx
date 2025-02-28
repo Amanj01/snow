@@ -104,7 +104,7 @@ const brandLogos = [
   // }
   
   return (
-    <div className='pb-8 md:py-10 bg-white relative lg:mb-16'>
+    <div className=' bg-white relative'>
       <Slider
         width={sliderWidth}
         duration={12}

@@ -8,7 +8,7 @@ const BrandPage = ({ brand }) => {
   return (
     <div className="py-8 pt-28 md:pt-[150px] overflow-hidden">
       {/* Hero Section */}
-      <div className="container mx-auto relative w-full h-96">
+      <div className="relative w-full h-96">
         <Image src={brand.heroImage} alt={brand.name} layout="fill" objectFit="cover" />
         <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50 text-white text-center p-4">
           <Image src={brand.logo} alt={`${brand.name} Logo`} width={100} height={100} className="mb-4" />
@@ -18,20 +18,22 @@ const BrandPage = ({ brand }) => {
       </div>
 
       {/* Brand Items Section */}
-      <div className="mt-36 ">
+      <div className="pt-6 md:pt-28 lg:pt-36">
          <ItemSlider items={brand.items} title={brand.name} />
       </div>
 
       {/* Comments Carousel */}
-      <div className="mt-10">
+      <div className="pt-6 md:pt-28 lg:pt-36">
          <Carousel comments={brand.comments} title={"user testimonials"} brandAppearance={false} />
       </div>
 
       {/* Resources Section */}
-      <ResourcesSection resources={brand.resources} />
-
+      <div className="pt-16 md:pt-28 lg:pt-36">
+        <ResourcesSection resources={brand.resources} />
+      </div>
+      
       {/* Social Media Section */}
-      <div className="mt-10 overflow-auto">
+      <div className="pt-8 md:pt-20 lg:pt-28 overflow-auto">
         <SocialMedia socials={brand.socials} />
       </div>
     </div>

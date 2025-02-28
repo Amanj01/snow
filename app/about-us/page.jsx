@@ -119,7 +119,7 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-mansory uppercase mb-4 text-blue-700">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-mansory uppercase mb-4 text-black">
               Our Commitment to the Medical Community
             </h2>
             <p className="text-lg text-gray-700 max-w-3xl mx-auto">

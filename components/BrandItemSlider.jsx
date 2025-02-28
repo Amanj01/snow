@@ -9,97 +9,15 @@ const ItemSlider = ({
   items,
   title,
   accentColor = "#0052CC",
-  fade = "white",
   autoScrollInterval = 4000,
  }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [activeDescriptionRefs, setActiveDescriptionRefs] = useState({});
-  const [isSliding, setIsSliding] = useState(false);
-  const [isLastSlide, setIsLastSlide] = useState(false);
   const scrollContainerRef = useRef(null);
   const cardRef = useRef(null);
   const descriptionRefs = useRef({});
   const scrollTimeouts = useRef({});
-  const slideAnimationDuration = 500; // Animation duration in ms
-  const isScrollingRef = useRef(false);
-  const lastScrollTimeRef = useRef(0);
-
-  // Check if at the last slide
-  const checkIfLastSlide = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      const isAtEnd = scrollLeft + clientWidth >= scrollWidth - 5;
-      setIsLastSlide(isAtEnd);
-    }
-  };
-
-  // Monitor scroll events to detect when sliding is happening
-  const handleScroll = () => {
-    if (!scrollContainerRef.current) return;
-    
-    const now = Date.now();
-    
-    // If we weren't already sliding, start sliding
-    if (!isScrollingRef.current) {
-      isScrollingRef.current = true;
-      setIsSliding(true);
-    }
-    
-    // Update the last scroll time
-    lastScrollTimeRef.current = now;
-    
-    // Check if we're at the last slide
-    checkIfLastSlide();
-    
-    // Clear any existing timeout
-    clearTimeout(scrollTimeouts.current.scrollEnd);
-    
-    // Set a timeout to detect when scrolling has stopped
-    scrollTimeouts.current.scrollEnd = setTimeout(() => {
-      isScrollingRef.current = false;
-      setIsSliding(false);
-    }, 100); // Small timeout to detect when scrolling stops
-  };
-
-  // Add scroll event listener
-  useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    if (scrollContainer) {
-      scrollContainer.addEventListener('scroll', handleScroll);
-      return () => scrollContainer.removeEventListener('scroll', handleScroll);
-    }
-  }, []);
-  
-  // Initial check
-  useEffect(() => {
-    checkIfLastSlide();
-  }, []);
-  
-  const handleScrollRight = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      const cardWidth = cardRef.current?.offsetWidth || 300;
-      const gap = 24;
-
-      if (scrollLeft + clientWidth >= scrollWidth - 1) {
-        // We're at the end, scroll back to start
-        setTimeout(() => {
-          if (scrollContainerRef.current) {
-            scrollContainerRef.current.scrollTo({
-              left: 0,
-              behavior: "smooth",
-            });
-          }
-        }, 1000); // Wait a second before resetting to start
-      } else {
-        scrollContainerRef.current.scrollBy({
-          left: cardWidth + gap,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
 
   // Main horizontal slider auto-scroll
   useEffect(() => {
@@ -171,7 +89,7 @@ const ItemSlider = ({
           startAutoScroll();
         }, 3000);
 
-        const handleDescScroll = () => {
+        const handleScroll = () => {
           if (Date.now() - lastProgrammaticScroll < 100) return;
 
           isManualScrolling = true;
@@ -187,8 +105,8 @@ const ItemSlider = ({
           }, 3000);
         };
 
-        descriptionEl.addEventListener('scroll', handleDescScroll);
-        scrollHandlers[index] = handleDescScroll;
+        descriptionEl.addEventListener('scroll', handleScroll);
+        scrollHandlers[index] = handleScroll;
       }
     });
 
@@ -221,6 +139,30 @@ const ItemSlider = ({
 
     return () => observer.disconnect();
   }, []);
+
+  const handleScrollRight = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const cardWidth = cardRef.current?.offsetWidth || 300;
+      const gap = 24;
+
+      if (scrollLeft + clientWidth >= scrollWidth - 1) {
+        setTimeout(() => {
+          if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTo({
+              left: 0,
+              behavior: "smooth",
+            });
+          }
+        }, 2000);
+      } else {
+        scrollContainerRef.current.scrollBy({
+          left: cardWidth + gap,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
 
   const handleCardMouseEnter = (index) => {
     setIsPaused(true);
@@ -263,7 +205,7 @@ const ItemSlider = ({
     >
       <div className="container mx-auto">
         <div className="px-2 md:px-0 lg:px-6 mb-10 md:mb-16 ">
-          <div className="flex items-center justify-between">
+          <div className=" flex items-center justify-between">
             <h1 className="text-2xl md:text-4xl lg:text-5xl text-left uppercase font-mansory">
               {title}
             </h1>
@@ -276,25 +218,11 @@ const ItemSlider = ({
              <ChevronRight className="w-4 h-4 md:w-6 md:h-6" />
             </button>
           </div>
+ 
         </div>
+
         <div className="relative">
-        {/* Left fade with dynamic intensity */}
-        <div 
-          className="absolute top-0 -left-10 w-28 h-full rounded-md pointer-events-none z-10"
-          style={{ 
-            opacity: isSliding && !isLastSlide ? 1 : 0,  // This line already handles it correctly
-            background: `linear-gradient(to right, white, ${fade}, transparent)`,
-            transition: isSliding ? 'opacity 0.4s ease-in' : 'opacity 0.9s ease-out'
-          }}
-        />
-        {/* Right fade with dynamic intensity */}
-        <div 
-          className="absolute top-0 right-0 w-28 h-full pointer-events-none z-10"
-          style={{ 
-            background: `linear-gradient(to left, white 20%, transparent)`,
-            transition: 'opacity 0.4s ease-in-out'
-          }}
-        />
+          <div className="absolute top-0 right-0 w-28 h-full bg-gradient-to-l from-white z-10 pointer-events-none hidden md:block" />
           <div
             ref={scrollContainerRef}
             className="grid grid-flow-col gap-6 overflow-x-auto scrollbar-hide pb-4 container mx-auto"
@@ -371,4 +299,5 @@ const ItemSlider = ({
     </motion.div>
   );
 };
+
 export default ItemSlider;

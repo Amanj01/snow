@@ -9,9 +9,15 @@ const page = () => {
   return (
     <div className=''>
       <Hero />
-      <BrandItems />
-      <Carousel comments={comments} title={"user testimonials"} brandAppearance={true} />
-      <LogoSlider />
+      <div className='pt-16 md:pt-28 lg:pt-36'>
+       <BrandItems />
+      </div>
+      <div className='pt-16 md:pt-28 lg:pt-36'>
+       <Carousel comments={comments} title={"user testimonials"} brandAppearance={true} />
+      </div>
+      <div className='py-16 md:py-24'>
+         <LogoSlider />
+      </div>
     </div>
   )
 }

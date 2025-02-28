@@ -9,8 +9,8 @@ const icons = {
 
 const SocialMedia = ({ socials }) => {
   return (
-    <section className="px-2 md:px-0 lg:px-6">
-    <div className=" mt-8 h-max container mx-auto">
+    <section className="px-2 md:px-4 lg:px-6">
+    <div className="h-max container mx-auto">
       <h2 className="text-2xl md:text-5xl uppercase font-mansory text-left">reach us</h2>
       <div className="flex flex-wrap gap-8 mt-6 md:mt-8">
         {socials.map(({ id, name, url }) => {

@@ -60,7 +60,7 @@ const ResourcesSection = ({
 
   const renderPagination = () => {
     return (
-      <div className="flex justify-center items-center mt-12 space-x-2">
+      <div className="flex justify-center items-center mt-16 space-x-2">
         <button 
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
@@ -155,10 +155,10 @@ const ResourcesSection = ({
   }
 
   return (
-    <section className="px-4 md:px-6 pb-16 pt-28 md:pt-32 lg:pt-36 text-[#333333]">
+    <section className="px-4 md:px-6 text-[#333333]">
       <div className="container mx-auto flex flex-col">
-        <div className="title flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-mansory uppercase mb-4 sm:mb-0 text-black">
+        <div className="title flex flex-col sm:flex-row justify-between items-start sm:items-center mb-16">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-mansory uppercase sm:mb-0 text-black">
             {title}
           </h1>
         </div>
