@@ -206,7 +206,7 @@ const ItemSlider = ({
       <div className="container mx-auto">
         <div className="px-2 md:px-0 lg:px-6 mb-10 md:mb-16 ">
           <div className=" flex items-center justify-between">
-            <h1 className="text-2xl md:text-4xl lg:text-5xl text-left uppercase font-mansory">
+            <h1 className="text-lg md:text-4xl lg:text-5xl text-left uppercase font-mansory">
               {title}
             </h1>
             <button

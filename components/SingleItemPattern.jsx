@@ -49,7 +49,7 @@ const SingleItem = ({ data, type }) => {
           <hr className="mt-6"/>
       </motion.div>
 
-      <div className="container mx-auto px-4 md:px-6 py-16 md:py-24">
+      <div className="container mx-auto px-4 md:px-6 md:py-10">
         {/* Gallery Section */}
         {gallery && gallery.length > 0 && (
           <motion.div
