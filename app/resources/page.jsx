@@ -1,7 +1,6 @@
 import ResourcesSection from '@/components/Resources'
 import React, { Suspense } from 'react'
 import { getAllResources } from '@/api-requests/apiReq'
-import { Metadata } from 'next';
 
 export const metadata = {
   title: 'Snow || Rources',

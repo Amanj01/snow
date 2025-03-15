@@ -1,5 +1,4 @@
-import React, { Suspense } from 'react'
-import { Metadata } from 'next';
+import React from 'react'
 import SnowAbout from '@/components/SnowAbout'
 
 export const metadata = {

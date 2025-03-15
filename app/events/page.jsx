@@ -1,6 +1,5 @@
 import BlogAndEventTemplate from "@/components/BlogAndEventTemplate";
 import { getAllBlogsAndEvents } from '@/api-requests/apiReq';
-import { Metadata } from 'next';
 import { Suspense } from "react";
 
 export const metadata = {
@@ -17,10 +16,11 @@ const Loading = () => (
 );
 
 
-
 const EventsPage = async ({ searchParams }) => {
     // Get the page from URL query params or default to 1
-    const page = searchParams?.page ? parseInt(searchParams.page) : 1;
+    const params = await searchParams;
+    const pageParam = params?.page;
+    const page = pageParam ? parseInt(pageParam) : 1;
     const pageSize = 6;
     
     const response = await getAllBlogsAndEvents(page, pageSize, "events");

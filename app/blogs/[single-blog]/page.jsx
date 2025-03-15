@@ -1,6 +1,5 @@
 import SingleItem from '@/components/SingleItemPattern';
 import { getBlog } from '@/api-requests/apiReq';
-import { Metadata } from 'next';
 import { Suspense } from 'react';
 
 export const metadata = {

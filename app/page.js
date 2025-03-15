@@ -4,7 +4,6 @@ import BrandItems from '@/components/BrandItems';
 import LogoSlider from '@/components/LogoBrandsSlider';
 import Carousel from '@/components/Carousel';
 import { getActiveHomes } from '@/api-requests/apiReq';
-import { Metadata } from 'next';
 import Loading from '@/components/Loading';
 
 export const metadata = {

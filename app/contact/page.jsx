@@ -1,10 +1,9 @@
 import ContactForm from '@/components/Contact-us'
-import { Metadata } from 'next';
 import { Suspense } from 'react';
 
 export const metadata = {
   title: 'Snow Contact || Snow Medical',
-  description: 'Contaxt snow medical.',
+  description: 'Contact snow medical.',
   keywords: 'contact, snow medical, snow medical community',
 };
 

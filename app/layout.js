@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://snow-med.netlify.app/'),
   title: "Snow Medical",
   description: "Snow Medical Community - Leading Healthcare Solutions",
   keywords: 'medical, healthcare, snow medical, medical community',
@@ -60,7 +61,12 @@ export const metadata = {
     index: true,
     follow: true,
   },
-  viewport: 'width=device-width, initial-scale=1',
+};
+
+// Separate viewport export as per Next.js recommendations
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
   themeColor: '#ffffff',
 };
 

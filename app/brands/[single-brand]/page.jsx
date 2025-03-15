@@ -1,10 +1,9 @@
   import BrandPage from '@/components/SingleBrand'
   import React, { Suspense } from 'react'
   import { getBrand } from '@/api-requests/apiReq'
-  import { Metadata } from 'next';
 
 export const metadata = {
-  title: 'Brand',
+  title: 'Snow || Brand',
   description: 'Brand',
 };
 

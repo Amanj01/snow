@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react'
 import { getEvent } from '@/api-requests/apiReq';
 import SingleItem from '@/components/SingleItemPattern'
-import { Metadata } from 'next';
 
 export const metadata = {
   title: 'Snow Event || Snow Medical',
