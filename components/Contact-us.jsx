@@ -1,5 +1,4 @@
 "use client";
-import Head from 'next/head';
 import React, { useState } from 'react';
 import { postFeedback } from '@/api-requests/apiReq';
 
@@ -95,11 +94,6 @@ const ContactForm = () => {
   };
 
   return (
-    <>
-      <Head>
-      <title>Contact us || Snow Medical</title>
-      <meta name="description" content="Contaxt snow medical." />
-      </Head>
         <div className="w-screen h-max flex justify-center ">
       <div className="py-24 px-4 sm:px-6 md:pt-32 lg:px-8 lg:pt-36 w-full max-w-5xl container mx-auto">
         <h2 className="text-3xl md:text-4xl lg:text-5xl text-left mb-4 md:mb-8 font-mansory text-black uppercase">contact us</h2>
@@ -180,8 +174,6 @@ const ContactForm = () => {
         </form>
       </div>
     </div>
-    </>
-
   );
 };
 
