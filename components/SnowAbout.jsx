@@ -4,14 +4,14 @@ import { motion } from 'framer-motion';
 
   const SnowAbout = ()=> {
   return (
-    <section className='flex flex-col items-center  py-16 md:py-24 lg:pt-36 text-[#333333] overflow-hidden'>
+    <section className='flex flex-col items-center pb-24 pt-28 md:py-24 lg:pt-36 text-[#333333] overflow-hidden'>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
         <div className="container mx-auto">
-          <div className=' max-w-7xl flex flex-col xl:flex-row gap-5 px-4 md:px-6'>
+          <div className='max-w-7xl flex flex-col xl:flex-row gap-5 px-4 md:px-6'>
             <h1 
               className="text-3xl md:text-4xl lg:text-5xl  font-semibold font-mansory uppercase"
               style={{ lineHeight: "1.5" }}
@@ -24,11 +24,11 @@ import { motion } from 'framer-motion';
           </div>
         </div>
 
-        <div className="w-screen relative bg-accent my-12 sm:my-20 md:my-24">
+        <div className="relative bg-accent my-12 sm:my-20 md:my-24">
           <Image
             src="/about.jpg"
             alt="Snow Medical Team"
-            className="object-cover w-screen"
+            className="object-cover w-full"
               width={1200}
               height={675}
             priority={true}
