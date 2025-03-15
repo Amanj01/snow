@@ -3,7 +3,7 @@ import { getEvent } from '@/api-requests/apiReq';
 import SingleItem from '@/components/SingleItemPattern'
 
 export const metadata = {
-  title: 'Snow Event || Snow Medical',
+  title: 'Snow || Event Post',
   description: 'Read our latest events on snow medical.',
 };
 

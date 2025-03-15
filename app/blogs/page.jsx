@@ -3,7 +3,7 @@ import { getAllBlogsAndEvents } from '@/api-requests/apiReq';
 import { Suspense } from 'react';
 
 export const metadata = {
-  title: 'Snow Blogs || Snow Medical',
+  title: 'Snow || Blogs',
   description: 'Read our latest blog posts on snow medical.',
 };
 

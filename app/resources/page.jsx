@@ -3,7 +3,7 @@ import React, { Suspense } from 'react'
 import { getAllResources } from '@/api-requests/apiReq'
 
 export const metadata = {
-  title: 'Snow || Rources',
+  title: 'Snow || Resources',
   description: 'Read our latest resources.',
 };
 

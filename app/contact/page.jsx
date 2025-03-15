@@ -2,7 +2,7 @@ import ContactForm from '@/components/Contact-us'
 import { Suspense } from 'react';
 
 export const metadata = {
-  title: 'Snow Contact || Snow Medical',
+  title: 'Snow  || Contact',
   description: 'Contact snow medical.',
   keywords: 'contact, snow medical, snow medical community',
 };

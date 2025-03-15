@@ -3,7 +3,7 @@ import { getBlog } from '@/api-requests/apiReq';
 import { Suspense } from 'react';
 
 export const metadata = {
-  title: 'Blog Post',
+  title: 'Snow || Blog Post',
   description: 'Blog Post',
 };
 

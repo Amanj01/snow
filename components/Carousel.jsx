@@ -96,7 +96,7 @@ const Carousel = ({ comments, title, brandAppearance }) => {
                         </div>
                       )}
                       {/* Footer with brand and name in same row */}
-                      <div className="mt-8 flex justify-between items-center">
+                      <div className="mt-16 flex justify-between items-center">
                         {item.name && (
                           <p className="text-lg font-poppins text-black capitalize" style={{left: slideNumber==1 ?"20px" : "0px" , paddingLeft: slideNumber==1? "10px" : "  "} }>
                             {item.name}

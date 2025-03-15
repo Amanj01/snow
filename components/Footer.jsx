@@ -9,7 +9,7 @@ const Footer = async() => {
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
         {/* Snow Medical Section */}
         <div>
-             <Image src="/whiteLogo.png" alt="Snow Medical" width={200} height={200} />
+             <Image src="/whiteLogo.png" alt="Snow Medical" width={150} height={150} />
            <p className="mt-2 pl-2 text-white">
             Providing top-tier medical services with a commitment to excellence and care.
           </p>
