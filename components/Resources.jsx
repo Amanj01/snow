@@ -1,4 +1,5 @@
 "use client";
+
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { HiArrowRight } from "react-icons/hi2";
@@ -6,6 +7,8 @@ import Link from "next/link";
 import { format } from 'date-fns';
 import { useInView } from "react-intersection-observer";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRouter, useSearchParams } from 'next/navigation';
+import { getAllResources } from '@/api-requests/apiReq';
 
 const truncateText = (text, maxLength = 100) => {
   if (!text) return "";
@@ -13,73 +16,53 @@ const truncateText = (text, maxLength = 100) => {
   return text.substring(0, maxLength).trim() + "...";
 };
 
-const ResourcesSection = ({ 
-  title = "RESOURCES",
-  resources = [],
-  itemsPerPage = 8
-}) => {
+const ResourcesSection = ({ initialResources, initialTotalPages }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [displayedResources, setDisplayedResources] = useState([]);
+  
+  // Get the current page from URL or default to 1
+  const currentPageParam = searchParams.get('page');
+  const [currentPage, setCurrentPage] = useState(currentPageParam ? parseInt(currentPageParam) : 1);
+  
+  const [totalPages, setTotalPages] = useState(initialTotalPages || 1);
+  const [resources, setResources] = useState(initialResources || []);
+  const [loading, setLoading] = useState(false);
+  const title = "RESOURCES";
+  const PAGE_SIZE = 10;
 
   useEffect(() => {
-    // Calculate total pages based on local resources array
-    setTotalPages(Math.ceil(resources.length / itemsPerPage));
-    
-    // Get resources for current page
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    setDisplayedResources(resources.slice(startIndex, endIndex));
-    
-    /* 
-    // API version - commented out until backend is deployed
-    // Function to fetch resources with pagination
+    // Update resources when page changes
     const fetchResources = async () => {
+      setLoading(true);
       try {
-        const response = await fetch(`/api/resources?page=${currentPage}&pageSize=${itemsPerPage}`);
-        const data = await response.json();
-        
-        setDisplayedResources(data.data);
-        setTotalPages(data.meta.totalPages);
+        const response = await getAllResources(currentPage, PAGE_SIZE);
+        setResources(response.data);
+        setTotalPages(response.meta.totalPages);
       } catch (error) {
         console.error("Error fetching resources:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchResources();
-    */
-  }, [currentPage, resources, itemsPerPage]);
+    // Only fetch if the page changed from the initial load
+    if (currentPage !== (currentPageParam ? parseInt(currentPageParam) : 1)) {
+      fetchResources();
+    }
+  }, [currentPage, currentPageParam]);
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
+      
+      // Update URL with the new page parameter
+      const params = new URLSearchParams(searchParams);
+      params.set('page', newPage.toString());
+      router.push(`?${params.toString()}`);
+      
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
-
-  const renderPagination = () => {
-    return (
-      <div className="flex justify-center items-center mt-16 space-x-2">
-        <button 
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className={`p-2 ${currentPage === 1 ? 'text-gray-400 cursor-not-allowed' : 'text-blue-700'}`}
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
-        
-        {renderPageNumbers()}
-        
-        <button 
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className={`p-2  ${currentPage === totalPages ? 'text-gray-400 cursor-not-allowed' : 'text-blue-700'}`}
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
-      </div>
-    );
   };
 
   const renderPageNumbers = () => {
@@ -95,8 +78,8 @@ const ResourcesSection = ({
     
     if (startPage > 1) {
       pageNumbers.push(
-        <button 
-          key={1} 
+        <button
+          key={1}
           onClick={() => handlePageChange(1)}
           className="w-10 h-10 text-blue-700"
         >
@@ -111,8 +94,8 @@ const ResourcesSection = ({
     
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(
-        <button 
-          key={i} 
+        <button
+          key={i}
           onClick={() => handlePageChange(i)}
           className={`w-10 h-10 ${i === currentPage ? 'bg-white text-blue-600 border border-blue-600' : 'text-blue-700'}`}
         >
@@ -127,8 +110,8 @@ const ResourcesSection = ({
       }
       
       pageNumbers.push(
-        <button 
-          key={totalPages} 
+        <button
+          key={totalPages}
           onClick={() => handlePageChange(totalPages)}
           className="w-10 h-10 rounded-full text-blue-700"
         >
@@ -140,11 +123,47 @@ const ResourcesSection = ({
     return pageNumbers;
   };
 
-  // Empty state handling
-  if (resources.length === 0) {
+  const renderPagination = () => {
+    return (
+      <div className="flex justify-center items-center mt-16 space-x-2">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`p-2 ${currentPage === 1 ? 'text-gray-400 cursor-not-allowed' : 'text-blue-700'}`}
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        
+        {renderPageNumbers()}
+        
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className={`p-2 ${currentPage === totalPages ? 'text-gray-400 cursor-not-allowed' : 'text-blue-700'}`}
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+      </div>
+    );
+  };
+
+  if (loading) {
     return (
       <section className="px-4 md:px-6 py-16 md:py-24 lg:pt-36 text-[#333333]">
         <div className="container mx-auto text-center">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-mansory uppercase mb-8 text-black">
+            {title}
+          </h1>
+          <p>Loading resources...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (!resources || resources.length === 0) {
+    return (
+      <section className="px-4 md:px-6 py-16 md:py-24 lg:pt-36 text-[#333333]">
+        <div className="container mx-auto text-left">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-mansory uppercase mb-8 text-black">
             {title}
           </h1>
@@ -164,7 +183,7 @@ const ResourcesSection = ({
         </div>
 
         <div className="content grid grid-cols-1 md:grid-cols-2 gap-12" ref={ref}>
-          {displayedResources.map((resource, index) => (
+          {resources.map((resource, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -172,7 +191,7 @@ const ResourcesSection = ({
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group flex flex-col border-l-2 border-red-500 pl-4 hover:border-blue-700 transition-colors duration-300 pb-2"
             >
-              <Link href={resource.url} target="_blank" rel="noopener noreferrer">
+              <Link href={process.env.NEXT_PUBLIC_API_URL + resource.filePath} target="_blank" rel="noopener noreferrer">
                 <div className="flex flex-col justify-between h-full">
                   <div className="flex items-start justify-between mb-2 group">
                     <h2 className="font-mansory uppercase text-lg md:text-xl pr-4 group-hover:text-blue-500 transition duration-300 text-gray-800">
@@ -184,13 +203,13 @@ const ResourcesSection = ({
                   </div>
                   
                   <p className="text-sm text-gray-600 mb-4">
-                    {truncateText(resource.description, 120)}
+                    {truncateText(resource.description, 100)}
                   </p>
                   
                   <div className="flex flex-col gap-2 mt-auto">
                     <div className="flex flex-wrap items-center gap-3">
                       <span className="text-xs inline-block text-gray-600">
-                      {format(new Date(resource.createdAt), 'MMMM d, yyyy')}
+                        {format(new Date(resource.createdAt), 'MMMM d, yyyy')}
                       </span>
                     </div>
                     <hr className="border-t border-gray-200 w-full mt-4" />
@@ -208,47 +227,3 @@ const ResourcesSection = ({
 };
 
 export default ResourcesSection;
-
-/* 
-// Backend pagination implementation (for future use)
-// This would be implemented in your API routes or server-side code
-
-// Example API route implementation:
-export default async function handler(req, res) {
-  const { page = 1, pageSize = 8 } = req.query;
-  
-  try {
-    // Convert to numbers
-    const pageNum = parseInt(page);
-    const pageSizeNum = parseInt(pageSize);
-    
-    // Calculate skip value for pagination
-    const skip = (pageNum - 1) * pageSizeNum;
-    
-    // Fetch data with pagination
-    const resources = await prisma.resource.findMany({
-      skip,
-      take: pageSizeNum,
-      orderBy: { createdAt: 'desc' },
-      // Add any other filters or includes here
-    });
-    
-    // Get total count for pagination metadata
-    const totalCount = await prisma.resource.count();
-    
-    // Return paginated data with metadata
-    res.status(200).json({
-      data: resources,
-      meta: {
-        totalCount,
-        totalPages: Math.ceil(totalCount / pageSizeNum),
-        currentPage: pageNum,
-        pageSize: pageSizeNum
-      }
-    });
-  } catch (error) {
-    console.error("Error fetching resources:", error);
-    res.status(500).json({ error: "Failed to fetch resources" });
-  }
-}
-*/

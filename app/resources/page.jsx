@@ -1,20 +1,30 @@
 import ResourcesSection from '@/components/Resources'
-import React from 'react'
-import { SnowResourcesData } from '@/lib/snow-resources-data'
-import Head from 'next/head'
+import React, { Suspense } from 'react'
+import { getAllResources } from '@/api-requests/apiReq'
+import { Metadata } from 'next';
 
- const SnowResources = () => {  
-  return(
-    <>
-      <Head> 
-      <title>Snow recources || Snow Medical</title>
-      <meta name="description" content="Read our latest recrources on snow medical." />
-      </Head>
-    <div className='pb-24 pt-28 md:pt-32 lg:pt-36'>
-    <ResourcesSection resources={SnowResourcesData}/>
+export const metadata = {
+  title: 'Snow || Rources',
+  description: 'Read our latest resources.',
+};
+
+const Loading = () => (
+  <div className="flex justify-center items-center min-h-screen">
+    <div className="animate-pulse text-2xl font-mansory uppercase text-black">
+      Loading Resources...
     </div>
-    </>
- 
+  </div>
+);
+
+ const SnowResources = async () => {  
+  const response = await getAllResources();
+  const data = response.data;
+   return(
+    <Suspense fallback={<Loading />}>
+      <div className='pb-24 pt-28 md:pt-32 lg:pt-36'>
+        <ResourcesSection  initialResources={data} initialTotalPages={response.meta.totalPages} />
+      </div>
+    </Suspense>
   )
 }
 

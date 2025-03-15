@@ -1,17 +1,16 @@
 import Image from "next/image";
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-
-const Footer = () => {
+import { getWebSocialMedias } from "@/api-requests/apiReq";
+import Link from 'next/link';
+const Footer = async() => {
+  const socialMedias = await getWebSocialMedias();
+  const social = socialMedias.data;
   return (
     <footer className="bg-gray-800 text-white py-10 px-6">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
         {/* Snow Medical Section */}
         <div>
-          <div className="flex items-center gap-4">
-            <Image src="/whiteLogo.png" alt="Snow Medical" width={100} height={100} />
-            <h2 className="text-2xl font-bold">Medical community</h2>
-          </div>
-          <p className="mt-2 text-white">
+             <Image src="/whiteLogo.png" alt="Snow Medical" width={200} height={200} />
+           <p className="mt-2 pl-2 text-white">
             Providing top-tier medical services with a commitment to excellence and care.
           </p>
         </div>
@@ -35,11 +34,12 @@ const Footer = () => {
           <p className="text-white">(555) 123-4567</p>
           <p className="text-white">contact@medicare.org</p>
           <div className="flex gap-4 mt-4">
-            <a href="#" className="text-white hover:text-blue-400 text-2xl"><FaFacebookF /></a>
-            <a href="#" className="text-white hover:text-blue-400 text-2xl"><FaTwitter /></a>
-            <a href="#" className="text-white hover:text-blue-400 text-2xl"><FaInstagram /></a>
-            <a href="#" className="text-white hover:text-blue-400 text-2xl"><FaLinkedinIn /></a>
-          </div>
+              {social.map((media, index) => (
+              <Link key={index} href={media.url} target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-500">
+                <Image src={process.env.NEXT_PUBLIC_API_URL+media.icon} alt={media.name} width={36} height={36} />
+              </Link>
+            ))}
+          </div>  
         </div>
       </div>
       

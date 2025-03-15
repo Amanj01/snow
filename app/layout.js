@@ -1,10 +1,10 @@
-
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScrollProvider";
-import Head from "next/head";
+import Loading from "@/components/Loading";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +26,9 @@ export const metadata = {
     siteName: 'Snow Medical',
     images: [
       {
-        url: '/snow.png',
-        width: 1200,
-        height: 630,
+        url: '/android-chrome-512x512.png',
+        width: 512,
+        height: 512,
       }
     ],
     locale: 'en_US',
@@ -38,12 +38,23 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Snow Medical',
     description: 'Snow Medical Community - Leading Healthcare Solutions',
-    images: ['/snow.png'],
+    images: ['/android-chrome-512x512.png'],
   },
   icons: {
-    icon: "/snow.png",
-    shortcut: "/snow.png",
-    apple: "/snow.png",
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      {
+        rel: 'manifest',
+        url: '/site.webmanifest',
+      },
+    ],
   },
   robots: {
     index: true,
@@ -52,22 +63,16 @@ export const metadata = {
   viewport: 'width=device-width, initial-scale=1',
   themeColor: '#ffffff',
 };
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <Head> 
-      <title>Snow || Snow Medical</title>
-      <meta name="keywords" content="medical, healthcare, snow medical, medical community" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/snow.png" />
-      <meta name="description" content="snow is a medical community." />
-      </Head>
-      <body
-        className=""
-      >
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         <SmoothScroll>
           <Navbar />
-          {children}
+          <Suspense fallback={<Loading />}>
+            {children}
+          </Suspense>
           <Footer />
         </SmoothScroll>
       </body>

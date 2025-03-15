@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, Heart, Pill, Stethoscope, Syringe, Microscope, Activity, ThermometerSun, Snowflake} from "lucide-react";
 import Image from "next/image";
+import { getAllBrands } from "@/api-requests/apiReq";
 import { usePathname } from "next/navigation";
  
 
@@ -12,54 +13,24 @@ const Navbar = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isBrandsDrawerOpen, setIsBrandsDrawerOpen] = useState(false);
+  const [brands , setBrands] = useState([]);
   const path = usePathname();
 
-  // Local medical brands data
-  const brands = [
-    {
-      id: 1,
-      name: "HealthPlus",
-      Icon: Heart,
-      color: "#FF4757"
-    },
-    {
-      id: 2,
-      name: "MediCare",
-      Icon: Pill,
-      color: "#2ED573"
-    },
-    {
-      id: 3,
-      name: "DocCare",
-      Icon: Stethoscope,
-      color: "#1E90FF"
-    },
-    {
-      id: 4,
-      name: "VitalPharm",
-      Icon: Syringe,
-      color: "#5352ED"
-    },
-    {
-      id: 6,
-      name: "LabTech",
-      Icon: Microscope,
-      color: "#A3CB38"
-    },
-    {
-      id: 7,
-      name: "VitalMetrics",
-      Icon: Activity,
-      color: "#5F27CD"
-    },
-    {
-      id: 8,
-      name: "CryoTech",
-      Icon: ThermometerSun,
-      color: "#54A0FF"
-    }
-  ];
 
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const response = await getAllBrands();
+        setBrands(response.data);
+       } catch (error) {
+        console.error("Error fetching brands:", error);
+        setBrands([]);
+      }
+    };
+    
+    fetchBrands();
+  }, []);
+  
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1024);
@@ -109,7 +80,9 @@ const Navbar = () => {
               className="pb-8 text-3xl hover:text-gray-700 text-black flex items-center gap-4"
               onClick={() => setIsBrandsDrawerOpen(false)}
             >
-              <brand.Icon size={24} color={brand.color} />
+              <div className="grayscale hover:grayscale-0 transition-all duration-300">
+                <Image src={process.env.NEXT_PUBLIC_API_URL+brand.logo} alt={brand.name} width={75} height={75} />
+              </div>
               {brand.name}
             </Link>
           ))}
@@ -150,7 +123,7 @@ const Navbar = () => {
               <div className="flex-shrink-0 flex items-center">
                 {/* logo section */}
               <Link href="/">
-                {path == "/" || path.startsWith("/blogs/") || path.startsWith("/events/")?
+                {path == "/" || path.startsWith("/blogs/") || path.startsWith("/events/") || path.startsWith("/brands/")?
                 <div className="relative">
                 <Image
                   width={105}
@@ -184,7 +157,7 @@ const Navbar = () => {
                     key={item.label}
                     href={item.href}
                     className={`menu text-[15px] relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
-                      isExpanded ? "text-gray-800 hover:text-black after:bg-black" : path== "/" || path.startsWith("/blogs/") || path.startsWith("/events/")? "text-white after:bg-black" : "text-black after:bg-black"
+                      isExpanded ? "text-gray-800 hover:text-black after:bg-black" : path== "/" || path.startsWith("/blogs/") || path.startsWith("/events/") || path.startsWith("/brands/")? "text-white after:bg-black" : "text-black after:bg-black"
                     } transition-colors duration-500`}
                     onMouseEnter={() => setHoveredItem(item.label)}
                     onMouseLeave={() => setHoveredItem(null)}
@@ -198,7 +171,7 @@ const Navbar = () => {
                 <Link
                   href="/contact"
                   className={`text-[15px] hover:font-medium relative after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[1px] after:transition-all after:duration-400 after:scale-x-0 hover:after:scale-x-100 ${
-                    isExpanded ? "text-black after:bg-black" : path== "/" || path.startsWith("/blogs/") || path.startsWith("/events/") ? "text-white after:bg-black" : "text-black after:bg-black"
+                    isExpanded ? "text-black after:bg-black" : path== "/" || path.startsWith("/blogs/") || path.startsWith("/events/") || path.startsWith("/brands/")? "text-white after:bg-black" : "text-black after:bg-black"
                   } transition-colors duration-500`}
                 >
                   CONTACT
@@ -223,18 +196,22 @@ const Navbar = () => {
             onMouseEnter={() => setHoveredItem("BRANDS")}
             onMouseLeave={() => setHoveredItem(null)}
           >
-            <div className="container mx-auto px-4 py-6 flex items-center justify-center h-[100px]">
-              <div className="grid grid-cols-4 md:grid-cols-8 gap-6 ">
-                {brands.map((brand) => (
-                  <Link
-                    key={brand.id}
-                    href={`/brands/${brand.id}`}
-                    className="flex flex-col items-center justify-center px-6 py-2 group"
-                  >
-                    <brand.Icon size={42} className="text-gray-500 grayscale group-hover:grayscale-0 group-hover:text-blue-600 transition-colors duration-500" />
-                    <span className="text-sm mt-2 text-gray-500 grayscale group-hover:grayscale-0 group-hover:text-blue-600 transition-colors duration-500">{brand.name}</span>
-                  </Link>
-                ))}
+            <div className="container mx-auto px-4 py-6 flex items-center justify-center h-[120px]">
+              <div className="flex items-center justify-center overflow-x-auto w-full py-2 no-scrollbar">
+                <div className="flex space-x-8">
+                  {brands.map((brand) => (
+                    <Link
+                      key={brand.id}
+                      href={`/brands/${brand.id}`}
+                      className="flex flex-col items-center justify-center px-4 group min-w-[120px]"
+                    >
+                      <div className="grayscale hover:grayscale-0 transition-all duration-300">
+                        <Image src={process.env.NEXT_PUBLIC_API_URL+brand.logo} alt={brand.name} width={70} height={70} />
+                      </div>
+                      <span className="text-sm mt-2 text-gray-500 group-hover:text-blue-600 transition-colors duration-500">{brand.name}</span>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

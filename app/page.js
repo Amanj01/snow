@@ -1,27 +1,45 @@
-import Hero from '@/components/Hero'
-import BrandItems from '@/components/BrandItems'
-import React from 'react'
- import LogoSlider from '@/components/LogoBrandsSlider'
-import Carousel from '@/components/Carousel'
-import { comments } from '@/lib/testimonialsData'
+import React, { Suspense } from 'react';
+import Hero from '@/components/Hero';
+import BrandItems from '@/components/BrandItems';
+import LogoSlider from '@/components/LogoBrandsSlider';
+import Carousel from '@/components/Carousel';
+import { getActiveHomes } from '@/api-requests/apiReq';
+import { Metadata } from 'next';
+import Loading from '@/components/Loading';
 
-const page = () => {
+export const metadata = {
+  title: 'Snow || Home',
+  description: 'Discover the latest trends and styles from Snow Medical',
+  keywords: ['snow medical', 'home', 'Medical brands', 'Medical products']
+};
+
+const HomeContent = async () => {
+  const activeHomes = await getActiveHomes();
+  
+  return (
+    <>
+      <Hero data={activeHomes} />
+      <div className='pt-16 md:pt-28 lg:pt-36'>
+        <BrandItems data={activeHomes.items} />
+      </div>
+      <div className='pt-16 md:pt-28 lg:pt-36'>
+        <Carousel comments={activeHomes.comments} title={"user testimonials"} brandAppearance={true} />
+      </div>
+      <div className='py-12 md:pb-24 md:pt-36'>
+        <LogoSlider data={activeHomes.brands} />
+      </div>
+    </>
+  );
+};
+
+const Page = () => {
   return (
     <div className=''>
-      <Hero />
-      <div className='pt-16 md:pt-28 lg:pt-36'>
-       <BrandItems />
-      </div>
-      <div className='pt-16 md:pt-28 lg:pt-36'>
-       <Carousel comments={comments} title={"user testimonials"} brandAppearance={true} />
-      </div>
-      <div className='pb-14 pt-20 md:pb-24 md:pt-36'>
-         <LogoSlider />
-      </div>
+      <Suspense fallback={<Loading />}>
+        <HomeContent />
+      </Suspense>
     </div>
-  )
-}
+  );
+};
 
-export default page
-
-
+export default Page;

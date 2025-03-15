@@ -4,16 +4,33 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 const HeroSection = ({ data }) => {
+
+  if(!data.active){
+    return null;
+  }else{
   return (
     <div className="relative w-screen h-screen">
+     {data.fileType.startsWith("image/") 
+     ? (
       <Image
-        src={data.coverMedia}
-        alt={data.title}
-        fill
-        priority
-        style={{ objectFit: 'cover' }}
-        className="z-0"
-      />
+      src={process.env.NEXT_PUBLIC_API_URL + data.coverMedia}
+      alt={data.title}
+      fill
+      priority
+      style={{ objectFit: 'cover' }}
+      className="z-0"
+    />
+     ):
+     (
+      <video
+      loop={true}
+      playsInline
+      >
+        <source src={process.env.NEXT_PUBLIC_API_URL + data.coverMedia} type={data.fileType} />
+        Your browser does not support the video tag.
+      </video>
+     )
+     }
       <div className="absolute inset-0 bg-black/45 flex items-center justify-center">
         <div className="container mx-auto">
           <div className="text-center text-white px-4 font-mansory uppercase max-w-4xl mx-auto">
@@ -38,6 +55,7 @@ const HeroSection = ({ data }) => {
       </div>
     </div>
   );
+}
 };
 
 export default HeroSection;

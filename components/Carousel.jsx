@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -12,6 +12,16 @@ const Carousel = ({ comments, title, brandAppearance }) => {
   const swiperRef = useRef(null);
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-50px" });
+
+  let slideNumber = comments.length;
+  if(slideNumber <= 3){
+    slideNumber = 1; 
+  }else if(slideNumber < 6){
+    slideNumber = 2;
+  }else {
+    slideNumber = 4;
+  }
+  
 
   return (
     <section className="w-screen px-2 md:px-4 lg:px-6">
@@ -38,6 +48,9 @@ const Carousel = ({ comments, title, brandAppearance }) => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 400 }}
             transition={{ duration: 1, delay: 0.75 }}
             className="relative carousel-container"
+            style={{
+              ['--carousel-gradient-width']: slideNumber == 1? "0%" : "13%", // Adjust this value as needed
+            }}
           >
             <Swiper
               onSwiper={(swiper) => (swiperRef.current = swiper)}
@@ -56,9 +69,9 @@ const Carousel = ({ comments, title, brandAppearance }) => {
               }}
               breakpoints={{
                 640: { slidesPerView: 1 },
-                768: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-                1400: { slidesPerView: 4 },
+                768: { slidesPerView: slideNumber == 1 ? 1 : 2},
+                1024: { slidesPerView: slideNumber },
+                1400: { slidesPerView: slideNumber },
               }}
               onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
               className="frames__slider"
@@ -73,19 +86,19 @@ const Carousel = ({ comments, title, brandAppearance }) => {
                       {/* Special styled testimonial */}
                       {item.review && (
                         <div className="my-8 relative top-1/2 transform translate-y-1/2">
-                          <div className="absolute -top-6 left-0 text-6xl text-blue-500 opacity-50">"</div>
-                          <div className="max-h-[150px] overflow-y-auto scrollbar-hide">
+                          <div className="absolute -top-6 text-6xl text-blue-500 opacity-50" style={{paddingLeft: slideNumber==1 ?"20px" : "0px"}}>"</div>
+                          <div className="max-h-[150px] mb-12 overflow-y-auto scrollbar-hide">
                             <p className="text-2xl md:text-3xl text-gray-700 font-poppinsRegular uppercase italic text-center px-6 py-4 relative z-10">
                               {item.review}
                             </p>
                           </div>
-                          <div className="absolute -bottom-6 right-0 text-6xl text-blue-500 opacity-50">"</div>
+                          <div className="absolute -bottom-6 text-6xl text-blue-500 opacity-50" style={{right: slideNumber==1 ?"30px" : "0px"}}>"</div>
                         </div>
                       )}
                       {/* Footer with brand and name in same row */}
                       <div className="mt-8 flex justify-between items-center">
                         {item.name && (
-                          <p className="text-lg font-poppins text-black capitalize">
+                          <p className="text-lg font-poppins text-black capitalize" style={{left: slideNumber==1 ?"20px" : "0px" , paddingLeft: slideNumber==1? "10px" : "  "} }>
                             {item.name}
                           </p>
                         )}
@@ -94,7 +107,7 @@ const Carousel = ({ comments, title, brandAppearance }) => {
                             href={`/brands/${item.id || item.brandId}`}
                            className="text-xl font-poppins text-black capitalize hover:text-blue-600 transition-colors duration-300"
                           >
-                            {item.brand}
+                            {item.brand.name}
                           </Link>
                         )}
                       </div>

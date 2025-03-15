@@ -241,7 +241,7 @@ const ItemSlider = ({
                 >
                   <div className="relative w-full h-full">
                     <Image
-                      src={item.cardImage}
+                      src={process.env.NEXT_PUBLIC_API_URL+item.cardImage}
                       alt={item.name}
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       fill
@@ -258,20 +258,20 @@ const ItemSlider = ({
                     />
                     
                     <div className="absolute top-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
-                      {item.brandName && (
+                      {item.brand && (
                         <Link
                         href={`/brands/${item.id || item.brandId}`}
                         className="text-sm capitalize hover:text-blue-600 transition-colors duration-300"
                         >
-                          {item.brandName}
+                          {item.brand.name}
                         </Link>
                       )}
                       <h3 className="text-lg">{item.name}</h3>
                     </div>
 
                     <div className="absolute bottom-4 left-4 right-4 text-white transition-all duration-500 group-hover:opacity-0 flex justify-between items-center">
-                      {item.brandName && (
-                        <p className="text-sm">{item.brandName}</p>
+                      {item.brand && (
+                        <p className="text-sm">{item.brand.name}</p>
                       )}
                       <h3 className="text-lg ">{item.name}</h3>
                     </div>

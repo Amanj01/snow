@@ -1,25 +1,48 @@
 import BlogAndEventTemplate from "@/components/BlogAndEventTemplate";
-import { sampleEvents } from "@/lib/blog-event-data";
-import Head from "next/head";
-const EventsPage = ({ events }) => {
+import { getAllBlogsAndEvents } from '@/api-requests/apiReq';
+import { Metadata } from 'next';
+import { Suspense } from "react";
+
+export const metadata = {
+  title: 'Snow Events || Snow Medical',
+  description: 'Read our latest events on snow medical.',
+};
+
+const Loading = () => (
+  <div className="flex justify-center items-center min-h-screen">
+    <div className="animate-pulse text-2xl font-mansory uppercase text-black">
+      Loading Events Of Snow Medical...
+    </div>
+  </div>
+);
+
+
+
+const EventsPage = async ({ searchParams }) => {
+    // Get the page from URL query params or default to 1
+    const page = searchParams?.page ? parseInt(searchParams.page) : 1;
+    const pageSize = 6;
+    
+    const response = await getAllBlogsAndEvents(page, pageSize, "events");
+    const data = response.data;
+    const totalPages = response.meta.totalPages;
+
+
   return (
-    <>
-      <Head>
-      <title>Snow Events || Snow Medical</title>
-      <meta name="description" content="Read our latest events on snow medical." />
-      </Head>
+    <Suspense fallback={<Loading />}>
+      <div className='pb-24 pt-28 md:pt-32 lg:pt-36'>
       <BlogAndEventTemplate 
-      items={sampleEvents}
+      initialData={data}
+      initialTotalPages={totalPages}
       title="EVENTS"
-      itemsCountText={`(${sampleEvents.length}) UPCOMING EVENTS`}
-      buttonText="VIEW ALL EVENTS"
-      itemLinkPrefix="/events"
+       buttonText="VIEW ALL EVENTS"
+      itemLinkPrefix="events"
       accentColor="bg-red-500"  // Different accent color for events
       textAccentColor="text-[#FF4500]"
-    />
-
-    </>
-
+      itemsPerPage={pageSize}
+      />
+      </div>
+    </Suspense>
   );
 };
 

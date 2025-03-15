@@ -4,17 +4,17 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import GallerySlider from "./GallerySlider";
 
-const SingleItem = ({ data, type }) => {
+const SingleItem = ({ data }) => {
   if (!data) return null;
 
-  const { title, subtitle, coverImage, description, gallery } = data;
+  const { title, content, coverImage, gallery } = data;
  
   return (
     <section className="text-[#333333de]">
       {/* Cover image with title overlay */}
       <div className="w-full h-screen relative">
         <Image
-          src={coverImage}
+          src={process.env.NEXT_PUBLIC_API_URL+coverImage}
           alt={title}
           layout="fill"
           objectFit="cover"
@@ -42,11 +42,7 @@ const SingleItem = ({ data, type }) => {
         transition={{ duration: 0.5, delay: 0.2 }}
         className=" px-4 py-6 text-left container mx-auto"
       >
-          <p className="text-lg md:text-xl lg:text-2xl mb-6">{subtitle}</p>
-          <p className="text-lg md:text-xl lg:text-2xl leading-relaxed ">
-            {description}
-          </p>
-          <hr className="mt-6"/>
+        <p className="text-lg md:text-xl lg:text-2xl mb-6">{content}</p>
       </motion.div>
 
       <div className="container mx-auto px-4 md:px-6 md:py-10">

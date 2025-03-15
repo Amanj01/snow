@@ -1,20 +1,29 @@
-"use client";
-
 import SingleItem from '@/components/SingleItemPattern';
-import { blogData } from '@/lib/singlePage-blog-data';
-import Head from 'next/head';
+import { getBlog } from '@/api-requests/apiReq';
+import { Metadata } from 'next';
+import { Suspense } from 'react';
 
-  const BlogPostPage= () => {
-  
+export const metadata = {
+  title: 'Blog Post',
+  description: 'Blog Post',
+};
+
+const Loading = () => (
+  <div className="flex justify-center items-center min-h-screen">
+    <div className="animate-pulse text-2xl font-mansory uppercase text-black">
+      Loading The Blog...
+    </div>
+  </div>
+);
+  const BlogPostPage= async ({params}) => {
+    const resolvedParams = await params;
+    const blogId = resolvedParams['single-blog'];
+  const blog = await getBlog(blogId);   
+
   return (
-  <>
-  <Head> 
-  <title>Snow Blogs || Snow Medical</title>
-  <meta name="description" content="Read our latest blog posts on snow medical." />
-  </Head>
-  
-  <SingleItem data={blogData} type="blog" />;
-  </>
+  <Suspense fallback={<Loading />}>
+    <SingleItem data={blog} type="blog" />;
+  </Suspense>
   )
 }
 

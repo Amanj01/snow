@@ -1,16 +1,17 @@
 "use client"
 import React, { useEffect , useState} from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Pill, Stethoscope, Syringe, Microscope, Activity, ThermometerSun} from "lucide-react";
 import Slider from 'react-infinite-logo-slider';
-import Link from 'next/link';
+import Link from 'next/link'
+import Image from 'next/image';
 
-const LogoSlider = () => {
+const LogoSlider = (data) => {
+  const brands = data.data;
   
   const [sliderWidth, setSliderWidth] = useState("200px");
   useEffect(() => {
     const handleResize = () => {
-      setSliderWidth(window.innerWidth < 780 ? "100px" : "200px");
+      setSliderWidth(window.innerWidth < 780 ? "100px" : "230px");
     };
 
     // Set initial width
@@ -27,100 +28,59 @@ const brandLogos = [
   {
     id: 1,
     name: 'Siemens Healthineers',
-    image:<Heart size={65}/>,
+    image:"/lg.png",
   },
   {
     id: 2,
     name: 'Philips Healthcare',
-    image: <Pill size={65}/>,
+    image:"/lg2.png",
   },
   {
     id: 3,
     name: 'Medtronic',
-    image: <Stethoscope size={65}/>,
+    image: "/lg3.png",
   },
   {
     id: 4,
     name: '3M Littmann',
-    image: <Syringe size={65}/>
+    image: "/lg4.png",
     },
     {
       id: 2,
       name: 'Philips Healthcare',
-      image: <Pill size={65}/>,
+      image: "/lg.png",
     },
     {
       id: 3,
       name: 'Medtronic',
-      image: <Stethoscope size={65}/>,
+      image: "/lg2.png",
     },
     {
       id: 4,
       name: '3M Littmann',
-      image: <Syringe size={65}/>
-    },
-    {
-      id: 5,
-      name: 'Siemens Healthineers',
-      image: <Microscope size={65}/>,
-    },
-    {
-      id: 6,
-      name: 'Philips Healthcare',
-      image: <Activity size={65}/>
-    },
-    {
-      id: 7,
-      name: 'Medtronic',
-      image: <ThermometerSun size={65}/>,
+      image: "/lg3.png",
     }
 ]
-  // const [logos, setLogos] = useState([]);
-  // const [loading, setLoading] = useState(true);
 
-
-  // useEffect(() => {
-  //   const fetchLogo = async () => {
-  //     try {
-  //       const response = await fetch('http://plenum.a-h-y.com/api/brands');
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
-  //       const data = await response.json();
-  //       setLogos(data.data);
-  //       console.log(data.data);
-
-  //     } catch (error) {
-  //       console.error('Error fetching projects:', error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchLogo();
-  // }, []);
-
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
   
   return (
     <div className=' bg-white relative'>
       <Slider
         width={sliderWidth}
-        duration={12}
+        duration={11}
         pauseOnHover={true}
         blurBorders={true}
         blurBorderColor="white"
       >
-        {brandLogos.map((item, index) => (
+        {brands.map((item, index) => (
           <Slider.Slide key={index}>
             <motion.div
               className="p-4 transition-all duration-500 group"
             >
             <Link href={`/brands/${item.id}`}>
-              {React.cloneElement(item.image, { 
-              className: 'transition-all duration-300 grayscale group-hover:grayscale-0 text-gray-600 group-hover:text-blue-600 w-[45px] h-[45px] md:w-[70px] md:h-[70px]'
-              })}
+              <Image src={process.env.NEXT_PUBLIC_API_URL+item.logo} alt={item.name} width={400} height={400}
+              className= 'transition-all duration-300 grayscale group-hover:grayscale-0 text-gray-600 w-max h-[50px] md:w-max md:h-[90px]'
+              />
             </Link>
             </motion.div>
           </Slider.Slide>
