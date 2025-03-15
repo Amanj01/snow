@@ -27,6 +27,7 @@ const Footer = async() => {
           </ul>
         </div>
 
+
         {/* Contact Section */}
         <div>
           <h2 className="text-xl font-semibold">Contact</h2>
