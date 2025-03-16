@@ -181,7 +181,7 @@ const Navbar = () => {
               <div className="lg:hidden flex items-center">
                 <button
                   onClick={toggleMenu}
-                  className={`inline-flex items-center justify-center p-2 rounded-md ${path=="/" || path.startsWith("/blogs/") || path.startsWith("/events/")? "text-white hover:text-gray-100 " : "text-black hover:text-gray-500 "} focus:outline-none`}
+                  className={`inline-flex items-center justify-center p-2 rounded-md ${path=="/" || path.startsWith("/blogs/") || path.startsWith("/brands/") || path.startsWith("/events/")? "text-white hover:text-gray-100 " : "text-black hover:text-gray-500 "} focus:outline-none`}
                 >
                   {isOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
