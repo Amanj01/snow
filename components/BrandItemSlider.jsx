@@ -260,7 +260,7 @@ const ItemSlider = ({
                     <div className="absolute top-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
                       {item.brand && (
                         <Link
-                        href={`/brands/${item.id || item.brandId}`}
+                        href={`/brands/${item.brand.id}`}
                         className="text-sm capitalize hover:text-blue-600 transition-colors duration-300"
                         >
                           {item.brand.name}
