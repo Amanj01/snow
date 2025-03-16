@@ -28,3 +28,4 @@ const Loading = () => (
   }
 
   export default SingleBrandPage
+  
