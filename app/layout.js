@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScrollProvider";
 import Loading from "@/components/Loading";
 
+export const dynamic = "force-dynamic";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
