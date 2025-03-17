@@ -3,13 +3,7 @@ import axios from 'axios';
 // get hero componet data from api endpoint 
 export const getActiveHomes = async()=> {
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/homes/active`,{
-            headers: {
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-      },
-    });
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/homes/active`);
     return response.data;
   }
   catch(error) {
