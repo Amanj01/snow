@@ -1,4 +1,3 @@
-"use dynamic";
 import React, { Suspense } from 'react';
 import Hero from '@/components/Hero';
 import BrandItems from '@/components/BrandItems';
