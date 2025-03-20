@@ -101,7 +101,6 @@ function TestimonialCard({ testimonial, brandAppearance }) {
         </svg>
 
         <p className="text-center px-12 font-sans">{testimonial.review}</p>
-
         {/* Closing quote SVG */}
         <svg
           className="absolute bottom-0 right-0 w-10 h-10 text-gray-800 opacity-50 transform rotate-180"
