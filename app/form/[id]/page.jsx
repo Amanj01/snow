@@ -132,7 +132,6 @@ const DynamicForm = ({ params }) => {
       <div className="bg-white shadow-md p-8 w-full max-w-md">
         <div className="flex justify-center">
           This form not longer available.
-          
         </div>
       </div>
     </div>
