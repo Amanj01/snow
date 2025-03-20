@@ -211,8 +211,7 @@ const ItemSlider = ({
             </h1>
             <button
               onClick={handleScrollRight}
-              className="p-2 transition-colors duration-200 text-white"
-              style={{ backgroundColor: accentColor }}
+              className="p-2 transition-colors duration-200 text-white bg-[#0052CC] hover:bg-[#0052ccd9]"
               aria-label="Scroll right"
             >
              <ChevronRight className="w-4 h-4 md:w-6 md:h-6" />
@@ -261,7 +260,7 @@ const ItemSlider = ({
                       {item.brand && (
                         <Link
                         href={`/brands/${item.brand.id}`}
-                        className="text-sm capitalize hover:text-blue-600 transition-colors duration-300"
+                        className="text-lg capitalize hover:text-blue-600 transition-colors duration-300"
                         >
                           {item.brand.name}
                         </Link>
@@ -271,7 +270,7 @@ const ItemSlider = ({
 
                     <div className="absolute bottom-4 left-4 right-4 text-white transition-all duration-500 group-hover:opacity-0 flex justify-between items-center">
                       {item.brand && (
-                        <p className="text-sm">{item.brand.name}</p>
+                        <p className="text-lg">{item.brand.name}</p>
                       )}
                       <h3 className="text-lg ">{item.name}</h3>
                     </div>

@@ -20,7 +20,7 @@ const Loading = () => (
   const data = response.data;
    return(
     <Suspense fallback={<Loading />}>
-      <div className='pb-24 pt-28 md:pt-32 lg:pt-36'>
+      <div className='pb-24 pt-28 md:pt-32 lg:pt-36 h-[100vh]'>
         <ResourcesSection  initialResources={data} initialTotalPages={response.meta.totalPages} />
       </div>
     </Suspense>

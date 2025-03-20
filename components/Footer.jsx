@@ -5,7 +5,7 @@ const Footer = async() => {
   const socialMedias = await getWebSocialMedias();
   const social = socialMedias.data;
   return (
-    <footer className="bg-gray-800 text-white py-10 px-6">
+    <footer className="bg-gray-800 text-white py-10 px-6 ">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
         {/* Snow Medical Section */}
         <div>

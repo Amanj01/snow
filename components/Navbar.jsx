@@ -196,19 +196,26 @@ const Navbar = () => {
             onMouseEnter={() => setHoveredItem("BRANDS")}
             onMouseLeave={() => setHoveredItem(null)}
           >
-            <div className="container mx-auto px-4 py-6 flex items-center justify-center h-[120px]">
+            <div className="container mx-auto px-4 py-6 flex items-center justify-center h-[100px]">
               <div className="flex items-center justify-center overflow-x-auto w-full py-2 no-scrollbar">
-                <div className="flex space-x-8">
+                <div className="flex space-x-8 mb-6 items-end"> 
                   {brands.map((brand) => (
                     <Link
                       key={brand.id}
                       href={`/brands/${brand.id}`}
-                      className="flex flex-col items-center justify-center px-4 group min-w-[120px]"
+                      className="flex flex-col items-center justify-end px-4 group min-w-[120px] h-[120px]"
                     >
-                      <div className="grayscale hover:grayscale-0 transition-all duration-300">
-                        <Image src={process.env.NEXT_PUBLIC_API_URL+brand.logo} alt={brand.name} width={70} height={70} />
+                      <div className="flex items-center justify-center h-[70px] grayscale hover:grayscale-0 transition-all duration-300">
+                        <Image 
+                          src={process.env.NEXT_PUBLIC_API_URL + brand.logo} 
+                          alt={brand.name} 
+                          width={70} 
+                          height={70} 
+                        />
                       </div>
-                      <span className="text-sm mt-2 text-gray-500 group-hover:text-blue-600 transition-colors duration-500">{brand.name}</span>
+                      <span className="text-sm mt-2 text-gray-500 group-hover:text-blue-600 transition-colors duration-500 h-[20px] flex items-end">
+                        {brand.name}
+                      </span>
                     </Link>
                   ))}
                 </div>

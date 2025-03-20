@@ -6,12 +6,12 @@ import axios from "axios";
 import { use } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const DynamicForm = ({ params }) => {
   const { id } = use(params); // Unwrap params promise
   const [form, setForm] = useState(null);
   const [formData, setFormData] = useState({});
-  const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const router = useRouter();
@@ -71,12 +71,11 @@ const DynamicForm = ({ params }) => {
     }
   };
 
-  const validateStep = (stepIndex) => {
-    const currentFields = fieldGroups[stepIndex];
+  const validateForm = () => {
     const newErrors = {};
     let isValid = true;
 
-    currentFields.forEach((field) => {
+    form.fields.forEach((field) => {
       if (field.isRequired && (formData[field.id] === undefined || formData[field.id] === "" || formData[field.id] === null)) {
         newErrors[field.id] = `${field.label} is required`;
         isValid = false;
@@ -96,17 +95,11 @@ const DynamicForm = ({ params }) => {
     return isValid;
   };
 
-  const handleNextStep = () => {
-    if (validateStep(currentStep)) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validate final step before submission
-    if (!validateStep(currentStep)) {
+    // Validate form before submission
+    if (!validateForm()) {
       return;
     }
     
@@ -134,40 +127,20 @@ const DynamicForm = ({ params }) => {
     }
   };
 
-  // Group fields into steps (adjust the number as needed)
-  const getFieldGroups = () => {
-    if (!form || !form.fields) return [];
-    const fieldsPerStep = Math.ceil(form.fields.length / 3);
-    return Array.from({ length: Math.ceil(form.fields.length / fieldsPerStep) }, (_, i) =>
-      form.fields.slice(i * fieldsPerStep, (i + 1) * fieldsPerStep)
-    );
-  };
-
-  const fieldGroups = getFieldGroups();
-  const progress = form && fieldGroups.length > 0 ? ((currentStep + 1) / fieldGroups.length) * 100 : 0;
-
   if (!form) return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white rounded-md shadow-lg p-8 w-full max-w-md">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="bg-white shadow-md p-8 w-full max-w-md">
         <div className="flex justify-center">
-          <div className="animate-pulse space-y-4">
-            <div className="h-6 bg-gray-200 rounded w-3/4 mx-auto"></div>
-            <div className="h-4 bg-gray-200 rounded w-5/6 mx-auto"></div>
-            <div className="space-y-2">
-              <div className="h-12 bg-gray-200 rounded"></div>
-              <div className="h-12 bg-gray-200 rounded"></div>
-              <div className="h-12 bg-gray-200 rounded"></div>
-            </div>
-          </div>
+          This form not longer available.
         </div>
       </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-gray-100 pb-24 pt-28 md:pt-32 lg:pt-36">
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-md shadow-lg overflow-hidden">
+    <div className="min-h-screen bg-gray-50 pb-24 pt-28 md:pt-32 lg:pt-36">
+      <div className="max-w-3xl mx-auto">
+        <div className="bg-white shadow-sm border border-gray-200">
           {/* Header */}
           <div className="bg-blue-600 p-6 text-white">
             <h2 className="text-2xl font-bold">{form.name}</h2>
@@ -176,27 +149,13 @@ const DynamicForm = ({ params }) => {
             )}
           </div>
           
-          {/* Progress bar */}
-          <div className="px-6 pt-4">
-            <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
-              <div 
-                className="bg-blue-600 h-2 rounded-full transition-all duration-500 ease-out"
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-            <div className="flex justify-between text-xs text-gray-500 mb-4">
-              <span>Step {currentStep + 1} of {fieldGroups.length}</span>
-              <span>{Math.round(progress)}% Complete</span>
-            </div>
-          </div>
-          
           {/* Form Fields */}
           <form onSubmit={handleSubmit} noValidate>
-            <div className="p-6">
-              {fieldGroups[currentStep]?.map((field) => {
+            <div className="p-6 grid grid-cols-1 gap-3">
+              {form.fields && form.fields.map((field) => {
                 const optionsArray = field.options ? field.options.split(",") : [];
                 return (
-                  <div key={field.id} className="mb-6">
+                  <div key={field.id} className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       {field.label}
                       {field.isRequired && <span className="text-red-500 ml-1">*</span>}
@@ -209,7 +168,7 @@ const DynamicForm = ({ params }) => {
                           required={field.isRequired}
                           onChange={(e) => handleChange(field.id, e.target.value)}
                           value={formData[field.id] || ""}
-                          className={`w-full p-3 border rounded-md transition duration-200 ${
+                          className={`w-full p-3 border transition duration-200 ${
                             errors[field.id] 
                               ? "border-red-500 focus:ring-red-500 focus:border-red-500" 
                               : "border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -226,7 +185,7 @@ const DynamicForm = ({ params }) => {
                           type="file"
                           required={field.isRequired}
                           onChange={(e) => handleFileChange(field.id, e)}
-                          className={`w-full p-2 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold ${
+                          className={`w-full p-2 text-sm file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold ${
                             errors[field.id]
                               ? "text-red-500 file:bg-red-50 file:text-red-700"
                               : "file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
@@ -243,7 +202,7 @@ const DynamicForm = ({ params }) => {
                           required={field.isRequired}
                           checked={formData[field.id] || false}
                           onChange={(e) => handleChange(field.id, e.target.checked)}
-                          className={`h-5 w-5 rounded focus:ring-blue-500 ${
+                          className={`h-5 w-5 focus:ring-blue-500 ${
                             errors[field.id] ? "border-red-500 text-red-600" : "text-blue-600"
                           }`}
                         />
@@ -258,7 +217,7 @@ const DynamicForm = ({ params }) => {
                           required={field.isRequired}
                           value={formData[field.id] || ""}
                           onChange={(e) => handleChange(field.id, e.target.value)}
-                          className={`w-full p-3 border rounded-md bg-white ${
+                          className={`w-full p-3 border bg-white ${
                             errors[field.id]
                               ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                               : "border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -276,33 +235,12 @@ const DynamicForm = ({ params }) => {
                         )}
                       </>
                     ) : field.type === "multi-select" ? (
-                      <>
-                        <select
-                          multiple
-                          required={field.isRequired}
-                          value={formData[field.id] || []}
-                          onChange={(e) =>
-                            handleChange(
-                              field.id,
-                              Array.from(e.target.selectedOptions, (option) => option.value)
-                            )
-                          }
-                          className={`w-full p-3 border rounded-md h-32 ${
-                            errors[field.id]
-                              ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                              : "border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          }`}
-                        >
-                          {optionsArray.map((option, idx) => (
-                            <option key={idx} value={option.trim()}>
-                              {option.trim()}
-                            </option>
-                          ))}
-                        </select>
-                        {errors[field.id] && (
-                          <p className="mt-1 text-sm text-red-500">{errors[field.id]}</p>
-                        )}
-                      </>
+                      <MultiSelectDropdown
+                        field={field}
+                        formData={formData}
+                        handleChange={handleChange}
+                        errors={errors}
+                      />
                     ) : field.type === "date" ? (
                       <>
                         <input
@@ -310,7 +248,7 @@ const DynamicForm = ({ params }) => {
                           required={field.isRequired}
                           value={formData[field.id] || ""}
                           onChange={(e) => handleChange(field.id, e.target.value)}
-                          className={`w-full p-3 border rounded-md ${
+                          className={`w-full p-3 border ${
                             errors[field.id]
                               ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                               : "border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -326,53 +264,94 @@ const DynamicForm = ({ params }) => {
               })}
             </div>
 
-            {/* Navigation buttons */}
-            <div className="px-6 pb-6 flex justify-between">
+            {/* Submit button */}
+            <div className="px-6 pb-6 flex justify-center">
               <button
-                type="button"
-                onClick={() => setCurrentStep(currentStep - 1)}
-                disabled={currentStep === 0}
-                className={`px-6 py-2 rounded-md font-medium transition ${
-                  currentStep === 0
-                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
+                type="submit"
+                disabled={isSubmitting}
+                className="px-8 py-3 bg-blue-600 text-white font-medium hover:bg-blue-700 transition flex items-center"
               >
-                Previous
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Submitting...
+                  </>
+                ) : (
+                  "Submit Form"
+                )}
               </button>
-              
-              {currentStep < fieldGroups.length - 1 ? (
-                <button
-                  type="button"
-                  onClick={handleNextStep}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition"
-                >
-                  Continue
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition flex items-center"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Submitting...
-                    </>
-                  ) : (
-                    "Submit Form"
-                  )}
-                </button>
-              )}
             </div>
           </form>
         </div>
       </div>
       <ToastContainer />
+    </div>
+  );
+};
+
+const MultiSelectDropdown = ({ field, formData, handleChange, errors }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleOptionChange = (value) => {
+    const selectedOptions = formData[field.id] || [];
+    if (selectedOptions.includes(value)) {
+      handleChange(field.id, selectedOptions.filter((option) => option !== value));
+    } else {
+      handleChange(field.id, [...selectedOptions, value]);
+    }
+  };
+
+  return (
+    <div className="relative">
+      <div
+        className={`w-full p-3 border bg-white cursor-pointer ${
+          errors[field.id]
+            ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+            : "border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        }`}
+        onClick={toggleDropdown}
+      >
+        {formData[field.id] && formData[field.id].length > 0
+          ? formData[field.id].join(", ")
+          : "Select options"}
+        <span className="float-right">
+          {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+        </span>
+      </div>
+      {isOpen && (
+        <div className="absolute z-10 w-full bg-white border border-gray-300 mt-1">
+          {field.options.split(",").map((option, idx) => (
+            <div
+              key={idx}
+              className={`p-2 cursor-pointer flex items-center hover:bg-gray-100 ${
+                formData[field.id] && formData[field.id].includes(option.trim())
+                  ? "bg-gray-200"
+                  : ""
+              }`}
+              onClick={() => handleOptionChange(option.trim())}
+            >
+              <input
+                type="checkbox"
+                checked={formData[field.id] && formData[field.id].includes(option.trim())}
+                onChange={() => handleOptionChange(option.trim())}
+                className="mr-2"
+              />
+              {option.trim()}
+            </div>
+          ))}
+        </div>
+      )}
+      {errors[field.id] && (
+        <p className="mt-1 text-sm text-red-500">{errors[field.id]}</p>
+      )}
+      <p className="mt-1 text-sm text-gray-500">You can select more than one option</p>
     </div>
   );
 };

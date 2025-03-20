@@ -43,6 +43,12 @@
     src: url('./fonts/Poppins-Regular.ttf') format('opentype');
     font-weight: 500;
   }
+  @font-face {
+    font-family: 'Forum-Regular';
+    src: url('./fonts/Forum-Regular.ttf') format('opentype');
+    font-weight: 500;
+  }
+
 
   
 }
@@ -81,30 +87,3 @@ html.lenis {
   flex-direction: column;
 }
 
-.carousel-container::before,
-.carousel-container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2%; /* Reduced width for mobile */
-  z-index: 2;
-  pointer-events: none;
-}
-
-@media (min-width: 768px) {
-  .carousel-container::before,
-  .carousel-container::after {
-    width: var(--carousel-gradient-width, 13%) /* Original width for larger screens */
-  }
-}
-
-.carousel-container::before {
-  left: 0;
-  background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
-}
-
-.carousel-container::after {
-  right: 0;
-  background: linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0));
-}

@@ -14,16 +14,18 @@ export const metadata = {
 
 const HomeContent = async () => {
   const activeHomes = await getActiveHomes();
-  
+  const carouselLenght = activeHomes.comments.length;  
   return (
     <>
       <Hero data={activeHomes} />
       <div className='pt-16 md:pt-28 lg:pt-36'>
         <BrandItems data={activeHomes.items} />
       </div>
+      {carouselLenght > 0 && (
       <div className='pt-16 md:pt-28 lg:pt-36'>
         <Carousel comments={activeHomes.comments} title={"user testimonials"} brandAppearance={true} />
       </div>
+      )}
       <div className='py-12 md:pb-24 md:pt-36'>
         <LogoSlider data={activeHomes.brands} />
       </div>

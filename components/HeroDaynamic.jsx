@@ -25,9 +25,12 @@ const HeroSection = ({ data }) => {
       <video
       loop={true}
       playsInline
+      muted={true}
+      autoPlay={true}
+      controls={false}
+      src={process.env.NEXT_PUBLIC_API_URL + data.coverMedia}
+      className="object-cover w-full h-full"
       >
-        <source src={process.env.NEXT_PUBLIC_API_URL + data.coverMedia} type={data.fileType} />
-        Your browser does not support the video tag.
       </video>
      )
      }
